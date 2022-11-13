@@ -1,9 +1,9 @@
 part of 'onboarding_cubit.dart';
 
-class OnboardingState {
+class OnBoardingState {
   final int index;
-  final List <OnboardingItem> items;
-  OnboardingState({
+  final List<OnBoardingItem> items;
+  OnBoardingState({
     required this.index,
     required this.items,
   });

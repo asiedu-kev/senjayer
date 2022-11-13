@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
 import 'package:senjayer/business_logic/cubit/password_cubit.dart';
-import 'package:senjayer/main.dart';
 import 'package:senjayer/presentation/screens/authentication/login/login_screen.dart';
 import 'package:senjayer/presentation/screens/authentication/signup/otp_screen.dart';
 import 'package:senjayer/presentation/screens/authentication/signup/signup_screen.dart';
@@ -17,9 +16,9 @@ class AppRouter {
       case '/onboarding':
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
-                  create: (context) => OnboardingCubit(),
+                  create: (context) => OnBoardingCubit(),
                   lazy: true,
-                  child: const OnboardingScreen(),
+                  child: const OnBoardingScreen(),
                 ));
 
       case '/login':
@@ -36,7 +35,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const OTPScreen());
 
       default:
-        return MaterialPageRoute(builder: (_) => const MyHomePage());
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
     }
   }
 }

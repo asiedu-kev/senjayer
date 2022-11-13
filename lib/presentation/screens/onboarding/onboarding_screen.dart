@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
 import 'package:senjayer/utils/constants.dart';
 
-class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+class OnBoardingScreen extends StatelessWidget {
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class OnboardingScreen extends StatelessWidget {
             children: [
               Expanded(
                   flex: 5,
-                  child: BlocBuilder<OnboardingCubit, OnboardingState>(
+                  child: BlocBuilder<OnBoardingCubit, OnBoardingState>(
                     builder: (context, state) {
                       return SizedBox(
                         width: double.infinity,
@@ -32,7 +31,7 @@ class OnboardingScreen extends StatelessWidget {
                 flex: 3,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 35),
-                  child: BlocBuilder<OnboardingCubit, OnboardingState>(
+                  child: BlocBuilder<OnBoardingCubit, OnBoardingState>(
                     builder: (context, state) {
                       return Column(
                         children: [
@@ -62,19 +61,24 @@ class OnboardingScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Row(
-                            mainAxisSize: MainAxisSize.min,/* 
+                            mainAxisSize: MainAxisSize.min,
+                            /*
                             mainAxisAlignment: MainAxisAlignment.center, */
-                            children: 
-                              state.items.map((onboardingItem) => Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5,),
-                                child: CircleAvatar(
-                                  backgroundColor: state.index == state.items.indexOf(onboardingItem)
-                                      ? AppConstants().purple
-                                      : AppConstants().grey,
-                                  radius: 4,
-                                ),
-                              )).toList()
-                            ,
+                            children: state.items
+                                .map((onBoardingItem) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 5,
+                                      ),
+                                      child: CircleAvatar(
+                                        backgroundColor: state.index ==
+                                                state.items
+                                                    .indexOf(onBoardingItem)
+                                            ? AppConstants().purple
+                                            : AppConstants().grey,
+                                        radius: 4,
+                                      ),
+                                    ))
+                                .toList(),
                           ),
                           const Spacer(),
                           TextButton(
@@ -97,7 +101,7 @@ class OnboardingScreen extends StatelessWidget {
                               if (state.index == state.items.length - 1) {
                                 Navigator.of(context).pushNamed('/login');
                               } else {
-                                BlocProvider.of<OnboardingCubit>(context)
+                                BlocProvider.of<OnBoardingCubit>(context)
                                     .goToNextItem();
                               }
                             },
