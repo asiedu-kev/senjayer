@@ -33,7 +33,14 @@ class AppConstants {
   );
   final Color pink = HexColor.fromHex("#EF5DA8");
   final Color purple = HexColor.fromHex("#3A0078");
+  final Color mediumPurple = HexColor.fromHex("#9B51E0");
+  final Color lightPurple = HexColor.fromHex("#E2DAEA");
   final Color shadowColor = HexColor.fromHex("#0B2C6629");
-
   final Color grey = HexColor.fromHex("#C4C4C4");
+  final Color lightyellow = HexColor.fromHex("#FEE488");
+  final Color yellow = HexColor.fromHex("#E8B500");
+  final Color lightGreen = HexColor.fromHex("#BDFBAD");
+  final Color green = HexColor.fromHex("#0D9353");
+  final Color lightRed = HexColor.fromHex("#FAC6C6");
+  final Color red = HexColor.fromHex("#F92A2A");
 }

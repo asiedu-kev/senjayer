@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/password_cubit.dart';
+import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
+import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 
 class SingupScreen extends StatefulWidget {
@@ -98,7 +98,6 @@ class _SingupScreenState extends State<SingupScreen> {
                       if (value.isEmpty) {
                         return "Adresse mail invalide";
                       }
-                      log("valdating");
                       return null;
                     },
                   ),
@@ -132,7 +131,6 @@ class _SingupScreenState extends State<SingupScreen> {
                       if (value.isEmpty) {
                         return "Numéro invalide";
                       }
-                      log("valdating");
                       return null;
                     },
                   ),
@@ -169,8 +167,9 @@ class _SingupScreenState extends State<SingupScreen> {
                       }
                       return null;
                     },
-                    onChanged: (password){
-                      BlocProvider.of<PasswordCubit>(context).checkPassword(password);
+                    onChanged: (password) {
+                      BlocProvider.of<PasswordCubit>(context)
+                          .checkPassword(password);
                     },
                   ),
                   const SizedBox(
@@ -249,39 +248,19 @@ class _SingupScreenState extends State<SingupScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.of(context).pushNamed("/otp");
-                      }
-                    },
-                    elevation: 0,
-                    height: 48,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        40,
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    color: AppConstants().purple,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "S'inscrire",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.values[5],
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  RoundedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.of(context).pushNamed(
+                            "/otp",
+                            arguments: {
+                              'title': "Inscription",
+                              'otp_method': OTPMethod.sms,
+                            },
+                          );
+                        }
+                      },
+                      label: "S'inscrire"),
                   const SizedBox(
                     height: 25,
                   ),

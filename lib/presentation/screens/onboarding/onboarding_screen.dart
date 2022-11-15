@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
+import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -96,42 +97,14 @@ class OnBoardingScreen extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          MaterialButton(
-                            onPressed: () {
+                          RoundedButton(onPressed: () {
                               if (state.index == state.items.length - 1) {
                                 Navigator.of(context).pushNamed('/login');
                               } else {
                                 BlocProvider.of<OnBoardingCubit>(context)
                                     .goToNextItem();
                               }
-                            },
-                            elevation: 0,
-                            height: 48,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                40,
-                              ),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5,
-                            ),
-                            color: AppConstants().purple,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "Suivant",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.values[5],
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                            }, label: "Suivant"),
                           const Spacer(),
                         ],
                       );

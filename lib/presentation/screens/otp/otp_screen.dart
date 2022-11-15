@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/pin_entry.dart';
+import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 
 class OTPScreen extends StatelessWidget {
-  const OTPScreen({Key? key}) : super(key: key);
+  final String title;
+  final OTPMethod otpMethod;
+  const OTPScreen({
+    Key? key,
+    required this.title,
+    this.otpMethod = OTPMethod.sms,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,7 @@ class OTPScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          "Inscription",
+          title,
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.values[5],
@@ -34,14 +42,15 @@ class OTPScreen extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            const Text(
-              "Un code a été envoyé au +229 94 94 ** 94",
-              style: TextStyle(fontSize: 16),
+            Text(
+              "Un code a été envoyé ${otpMethod == OTPMethod.sms? "au +229 94 94 ** 94" : "à l'adresse mail : jy.**ouanvoedo@gmail.com"}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(
               height: 20,
             ),
-            PinEntryTextField(),
+            const PinEntryTextField(),
             const SizedBox(
               height: 20,
             ),
@@ -67,35 +76,11 @@ class OTPScreen extends StatelessWidget {
                   ]),
             ),
             const Spacer(),
-            MaterialButton(
-              onPressed: () {},
-              elevation: 0,
-              height: 48,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  40,
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(
-                vertical: 5,
-              ),
-              color: AppConstants().purple,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      "Vérifier",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.values[5],
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            RoundedButton(onPressed: () {
+              if(otpMethod == OTPMethod.mail){
+                Navigator.of(context).pushNamed("/newPassword");
+              }
+            }, label: "Vérifier"),
             const SizedBox(
               height: 20,
             ),
