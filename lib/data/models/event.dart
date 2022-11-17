@@ -97,3 +97,83 @@ List<Event> demoEvents = [
     date: DateTime(2022, 04, 17, 21, 00),
   ),
 ];
+
+List<Event> demoFavoriteEvents = [
+  Event(
+    imagePath: "assets/images/VDA_large.png",
+    title: "Concert VDA",
+    location: "Stade GMK",
+    price: 2000,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/beninoise_large.png",
+    title: "Village de l'indépendance",
+    location: "Family Beach, Cotonou BENIN",
+    price: 500,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/showcase_large.png",
+    title: "Showcase Vano",
+    location: "Stade GMK",
+    price: 2000,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+];
+
+List<Event> demoSpotlightEvents = [
+  Event(
+    imagePath: "assets/images/vano_large.png",
+    title: "Concert Vano",
+    location: "Stade GMK",
+    price: 2000,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/gourmand_large.png",
+    title: "Eat & Drink Cotonou",
+    location: "Family Beach, Cotonou BENIN",
+    price: 500,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/ze_night_large.png",
+    title: "ZeChill, Afro Vibes",
+    location: "Family Beach, Cotonou BENIN",
+    price: 500,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+];
+
+List<Event> demoEventListEvents = [
+  Event(
+    imagePath: "assets/images/vano_side.png",
+    title: "Concert Vano",
+    location: "Stade GMK",
+    price: 2000,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/ze_night_side.png",
+    title: "ZeChill, Afro Vibes",
+    location: "Family Beach, Cotonou BENIN",
+    price: 500,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/gourmand_side.png",
+    title: "Eat & Drink Cotonou",
+    location: "Family Beach, Cotonou BENIN",
+    price: 500,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  Event(
+    imagePath: "assets/images/showcase_side.png",
+    title: "Showcase Vano",
+    location: "Family Beach, Cotonou BENIN",
+    price: 500,
+    date: DateTime(2022, 04, 17, 21, 00),
+  ),
+  
+];

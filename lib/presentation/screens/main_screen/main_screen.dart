@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
+import 'package:senjayer/business_logic/cubit/search_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/home_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/bottom_nav_bar_item.dart';
 
@@ -23,9 +24,16 @@ class _MainScreenState extends State<MainScreen> {
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          BlocProvider(
-            create: (context) => CategoryCubit(),
-            child: const HomePage(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => CategoryCubit(),
+              ),
+              BlocProvider(
+                create: (context) => SearchCubit(),
+              ),
+            ],
+            child: HomePage(),
           ),
           Container(
             color: Colors.red,

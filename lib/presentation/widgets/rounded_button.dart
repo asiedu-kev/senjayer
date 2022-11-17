@@ -4,10 +4,12 @@ import 'package:senjayer/utils/constants.dart';
 class RoundedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String label;
+  final Color? color;
   const RoundedButton({
     Key? key,
     required this.onPressed,
     required this.label,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class RoundedButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         vertical: 5,
       ),
-      color: AppConstants().purple,
+      color: color?? AppConstants().purple,
       child: Row(
         children: [
           Expanded(

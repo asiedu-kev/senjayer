@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
+import 'package:senjayer/presentation/widgets/event_detail_item.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:senjayer/utils/util_functions.dart';
 
-class EventCard extends StatelessWidget {
+class EventDetailCard extends StatelessWidget {
   final Event event;
-  const EventCard({
+  final bool isLarge;
+  const EventDetailCard({
     Key? key, required this.event,
+    this.isLarge = false,
   }) : super(key: key);
 
   @override
@@ -19,7 +22,7 @@ class EventCard extends StatelessWidget {
         ),
         child: Container(
           height: 268,
-          width: 221,
+          width: isLarge? double.infinity : 221,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -92,7 +95,7 @@ class EventCard extends StatelessWidget {
                             Icons.bookmark_border,
                             size: 14,
                             color: AppConstants().mediumPurple,
-                          )
+                          ),
                         ],
                       )
                     ],
@@ -103,40 +106,6 @@ class EventCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class EventDetailItem extends StatelessWidget {
-  final IconData icon;
-  final String data;
-  const EventDetailItem({
-    Key? key,
-    required this.icon,
-    required this.data,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          size: 12,
-          color: AppConstants().mediumPurple,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          data,
-          style: const TextStyle(
-            fontSize: 12,
-          ),
-        )
-      ],
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/models/event_list.dart';
-import 'package:senjayer/presentation/screens/main_screen/widgets/event_card.dart';
+import 'package:senjayer/presentation/widgets/event_card.dart';
 import 'package:senjayer/utils/constants.dart';
 
 class EventListWidget extends StatelessWidget {
@@ -26,19 +26,22 @@ class EventListWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                "voir plus",
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.values[5],
-                  color: AppConstants().mediumPurple,
+              child: TextButton(
+                onPressed: () => Navigator.of(context).pushNamed(
+                  "/eventList",
+                  arguments: eventList,
+                ),
+                child: Text(
+                  "voir plus",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.values[5],
+                    color: AppConstants().mediumPurple,
+                  ),
                 ),
               ),
             ),
           ],
-        ),
-        const SizedBox(
-          height: 15,
         ),
         SizedBox(
           height: 268,
@@ -47,9 +50,9 @@ class EventListWidget extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: eventList.events.length,
-            itemBuilder: (context, index) => EventCard(
-                  event: eventList.events[index],
-                ),
+            itemBuilder: (context, index) => EventDetailCard(
+              event: eventList.events[index],
+            ),
           ),
         ),
       ],
