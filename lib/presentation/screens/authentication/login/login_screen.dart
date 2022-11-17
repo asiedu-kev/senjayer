@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
+import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -48,10 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     radius: 32,
                     backgroundImage: AssetImage("assets/icons/app_icon.png"),
                   ),
-                  /* 
-                  const SizedBox(
-                    height: 10,
-                  ), */
                   Text(
                     "Senjayer",
                     style: TextStyle(
@@ -139,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (value.isEmpty) {
                         return "Adresse mail ou mot de passe erroné";
                       }
-                      if(value.length < 6){
+                      if (value.length < 6) {
                         return "Adresse mail ou mot de passe erroné";
                       }
                       return null;
@@ -190,36 +187,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  MaterialButton(
+                  RoundedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {}
                     },
-                    elevation: 0,
-                    height: 48,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        40,
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    color: AppConstants().purple,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Se connecter",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.values[5],
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
+                    label: "Se connecter",
                   ),
                   const SizedBox(
                     height: 25,
