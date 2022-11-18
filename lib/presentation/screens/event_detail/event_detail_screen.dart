@@ -3,6 +3,7 @@ import 'package:senjayer/data/models/pricing.dart';
 import 'package:senjayer/presentation/screens/event_detail/widgets/pricing_item.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class EventDetailScreen extends StatelessWidget {
   const EventDetailScreen({Key? key}) : super(key: key);
@@ -109,23 +110,81 @@ class EventDetailScreen extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 7),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppConstants().purple,
+                          GestureDetector(
+                            onTap: () => showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 30,
+                                  ),
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 170,
+                                        width: 170,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          color: AppConstants().lightPurple,
+                                        ),
+                                        child: Icon(
+                                          Icons.event_available,
+                                          color: AppConstants().purple,
+                                          size: 80,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w,
+                                        ),
+                                        child: Text(
+                                          "Ajouté avec succès au calendrier",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline1!
+                                              .copyWith(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Text(
-                              "Ajouter au calendrier",
-                              style: TextStyle(
-                                color: AppConstants().purple,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                            child: Container(
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 7),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppConstants().purple,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                "Ajouter au calendrier",
+                                style: TextStyle(
+                                  color: AppConstants().purple,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -228,44 +287,48 @@ class EventDetailScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppConstants().purple,
-                      ),
-                      shape: BoxShape.circle,
-                      image: const DecorationImage(
-                        image: AssetImage("assets/images/empire.png"),
+              GestureDetector(
+                onTap: () =>
+                    Navigator.of(context).pushNamed("/organizerDetail"),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppConstants().purple,
+                        ),
+                        shape: BoxShape.circle,
+                        image: const DecorationImage(
+                          image: AssetImage("assets/images/empire.png"),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Groupe Empire",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Groupe Empire",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Organisateur",
-                        style: TextStyle(
-                          fontSize: 16,
+                        Text(
+                          "Organisateur",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -351,7 +414,7 @@ class EventDetailScreen extends StatelessWidget {
               width: 220,
               child: RoundedButton(
                 label: "Acheter Ticket",
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).pushNamed("/buyTicket"),
               ),
             )
           ],
