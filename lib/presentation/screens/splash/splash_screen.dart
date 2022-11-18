@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   init() async {
     await Future.delayed(const Duration(seconds: 5)).then(
-      (value) => Navigator.of(context).pushReplacementNamed("/passwordRecup"),
+      (value) => Navigator.of(context).pushReplacementNamed("/main"),
     );
   }
 
@@ -34,8 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

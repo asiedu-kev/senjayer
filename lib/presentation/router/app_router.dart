@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
 import 'package:senjayer/business_logic/cubit/password_cubit.dart';
+import 'package:senjayer/business_logic/cubit/ticket_cubit.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/presentation/screens/authentication/login/login_screen.dart';
+import 'package:senjayer/presentation/screens/buy_ticket/buy_ticket_screen.dart';
 import 'package:senjayer/presentation/screens/event_detail/event_detail_screen.dart';
 import 'package:senjayer/presentation/screens/event_list/event_list_screen.dart';
 import 'package:senjayer/presentation/screens/favorites/favorite_screen.dart';
 import 'package:senjayer/presentation/screens/main_screen/main_screen.dart';
 import 'package:senjayer/presentation/screens/notifications/notifications_screen.dart';
+import 'package:senjayer/presentation/screens/organizer_detail/organizer_detail_screen.dart';
 import 'package:senjayer/presentation/screens/otp/otp_screen.dart';
 import 'package:senjayer/presentation/screens/authentication/signup/signup_screen.dart';
 import 'package:senjayer/presentation/screens/onboarding/onboarding_screen.dart';
@@ -84,9 +87,19 @@ class AppRouter {
             eventList: argument,
           ),
         );
-    
+
       case '/eventDetail':
         return MaterialPageRoute(builder: (_) => const EventDetailScreen());
+
+      case '/organizerDetail':
+        return MaterialPageRoute(builder: (_) => const OrganizerDetailScreen());
+
+      case '/buyTicket':
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => TicketCubit(),
+                  child: const BuyTicketScreen(),
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
