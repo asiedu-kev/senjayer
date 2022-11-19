@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/presentation/widgets/logo_box.dart';
+import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   init() async {
     await Future.delayed(const Duration(seconds: 5)).then(
-      (value) => Navigator.of(context).pushReplacementNamed("/main"),
+      (value) => Navigator.of(context).pushReplacementNamed("/passwordRecup"),
     );
   }
 
@@ -45,13 +46,13 @@ class _SplashScreenState extends State<SplashScreen> {
               Spacer(),
             ],
           ),
-          const SizedBox(
-            height: 70,
+          SizedBox(
+            height: 7.h,
           ),
           Text(
             "Senjayer",
             style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: 24,
+                  fontSize: 18.5.sp,
                   fontWeight: FontWeight.bold,
                 ),
           ),

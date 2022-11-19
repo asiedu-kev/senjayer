@@ -3,6 +3,7 @@ import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -36,14 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 5.h,
                   ),
                   const CircleAvatar(
                     radius: 32,
@@ -52,39 +53,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Senjayer",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18.sp,
                       color: AppConstants().purple,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 3.h,
                   ),
-                  const Text(
+                 Text(
                     "Connexion",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         "Email",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
                     controller: _emailController,
@@ -105,24 +106,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         "Mot de passe",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
                     controller: _passwordController,
@@ -142,14 +143,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 25,
+                      padding: EdgeInsets.only(
+                        left: 5.w,
                       ),
                       child: GestureDetector(
                         onTap: () => setState(() {
@@ -172,10 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
+                            Text(
                               "Garder ma session active",
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -184,8 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   RoundedButton(
                     onPressed: () {
@@ -193,17 +194,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     label: "Se connecter",
                   ),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 3.h,
                   ),
-                  const Text(
+                   Text(
                     "ou poursuivre avec",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 10.sp,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -212,16 +213,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             AuthMethodButton(authMethod: authMethod))
                         .toList(),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Vous n'avez pas encore de compte ?",
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 9.sp,
                         ),
                       ),
                       TextButton(
@@ -230,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "S'enregistrer",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 9.sp,
                             color: AppConstants().purple,
                             fontWeight: FontWeight.bold,
                           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class SpotlightEventCard extends StatelessWidget {
   final Event event;
@@ -12,8 +13,8 @@ class SpotlightEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 20,
+      padding:  EdgeInsets.only(
+        bottom: 2.h,
       ),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -22,7 +23,7 @@ class SpotlightEventCard extends StatelessWidget {
           ),
         ),
         child: Container(
-          height: 211,
+          height: 23.h,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -60,14 +61,16 @@ class SpotlightEventCard extends StatelessWidget {
                     children: [
                       Text(
                         event.title,
-                        style: const TextStyle(
-                          fontSize: 18,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13.5.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Icon(
                         Icons.bookmark_border,
-                        size: 25,
+                        size: 20.sp,
                         color: AppConstants().mediumPurple,
                       )
                     ],

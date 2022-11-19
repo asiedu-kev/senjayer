@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class LogoBox extends StatelessWidget {
   const LogoBox({
@@ -9,8 +10,8 @@ class LogoBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 339,
-      width: 358,
+      height: 45.h,
+      width: 80.w,
       child: Stack(
         alignment: Alignment.center,
         children: [

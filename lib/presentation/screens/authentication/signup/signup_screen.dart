@@ -6,6 +6,7 @@ import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class SingupScreen extends StatefulWidget {
   const SingupScreen({Key? key}) : super(key: key);
@@ -34,59 +35,55 @@ class _SingupScreenState extends State<SingupScreen> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 5.h,
                   ),
                   const CircleAvatar(
                     radius: 32,
                     backgroundImage: AssetImage("assets/icons/app_icon.png"),
                   ),
-                  /* 
-                  const SizedBox(
-                    height: 10,
-                  ), */
                   Text(
                     "Senjayer",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18.sp,
                       color: AppConstants().purple,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 3.h,
                   ),
-                  const Text(
+                  Text(
                     "Inscription",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: EdgeInsets.only(left: 5.w),
                       child: Text(
                         "Email",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
                     controller: _emailController,
@@ -101,24 +98,24 @@ class _SingupScreenState extends State<SingupScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: EdgeInsets.only(left: 5.w),
                       child: Text(
                         "Numéro de téléphone",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
                     controller: _phoneNumberController,
@@ -134,24 +131,24 @@ class _SingupScreenState extends State<SingupScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 20.0),
                       child: Text(
                         "Mot de passe",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
                     controller: _passwordController,
@@ -172,17 +169,17 @@ class _SingupScreenState extends State<SingupScreen> {
                           .checkPassword(password);
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Text(
+                  Text(
                     "Votre mot de passe doit contenir",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 10.5.sp,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 1.h,
                   ),
                   BlocBuilder<PasswordCubit, PasswordState>(
                     builder: (context, state) {
@@ -199,22 +196,22 @@ class _SingupScreenState extends State<SingupScreen> {
                                 : Colors.red,
                             size: 18,
                           ),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: 2.w,
                           ),
                           Text(
                             "Au minimum 6 caracteres",
                             style:
                                 Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 12,
+                                      fontSize: 9.sp,
                                     ),
                           ),
                         ],
                       );
                     },
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 1.h,
                   ),
                   BlocBuilder<PasswordCubit, PasswordState>(
                     builder: (context, state) {
@@ -229,24 +226,24 @@ class _SingupScreenState extends State<SingupScreen> {
                             color: state.containsASCIIAndNumber
                                 ? Theme.of(context).primaryColor
                                 : Colors.red,
-                            size: 18,
+                            size: 15.sp,
                           ),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: 2.w,
                           ),
                           Text(
                             "Contenir un caractere ASCI et un chiffre",
                             style:
                                 Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 12,
+                                      fontSize: 9.sp,
                                     ),
                           ),
                         ],
                       );
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   RoundedButton(
                       onPressed: () {
@@ -261,17 +258,17 @@ class _SingupScreenState extends State<SingupScreen> {
                         }
                       },
                       label: "S'inscrire"),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 3.h,
                   ),
-                  const Text(
+                  Text(
                     "ou poursuivre avec",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 10.sp,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

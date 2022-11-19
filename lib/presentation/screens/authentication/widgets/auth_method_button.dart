@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/auth_method.dart';
+import 'package:sizer/sizer.dart';
 
 class AuthMethodButton extends StatelessWidget {
   final AuthMethod authMethod;
@@ -12,8 +13,8 @@ class AuthMethodButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        height: 90,
-        width: 90,
+        height: 21.w,
+        width: 21.w,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.grey.withOpacity(0.5),
@@ -24,19 +25,19 @@ class AuthMethodButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 45,
-              width: 45,
+              height: 10.5.w,
+              width: 10.5.w,
               child: Image.asset(
                 authMethod.imagePath,
               ),
             ),
-            const SizedBox(
-              height: 5,
+            SizedBox(
+              height: 0.5.h,
             ),
             Text(
               authMethod.name,
-              style: const TextStyle(
-                fontSize: 12,
+              style: TextStyle(
+                fontSize: 8.5.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),

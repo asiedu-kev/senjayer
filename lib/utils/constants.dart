@@ -43,4 +43,5 @@ class AppConstants {
   final Color green = HexColor.fromHex("#0D9353");
   final Color lightRed = HexColor.fromHex("#FAC6C6");
   final Color red = HexColor.fromHex("#F92A2A");
+  final Color purpleAccent = HexColor.fromHex("#9B51E0");
 }

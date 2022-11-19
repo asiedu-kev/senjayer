@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/presentation/screens/password_recovery/widgets/recup_method_item.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
+import 'package:sizer/sizer.dart';
 
 class PasswordRecupScreen extends StatelessWidget {
   const PasswordRecupScreen({Key? key}) : super(key: key);
@@ -12,23 +13,23 @@ class PasswordRecupScreen extends StatelessWidget {
       appBar: const ArrowBackAppBar(title: "Mot de passe oublie").build(context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
+          padding:  EdgeInsets.symmetric(
+            horizontal: 5.w,
           ),
           child: Column(
             children: [
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 2.h,
               ),
-              const Text(
+              Text(
                 "Sélectionnez les coordonnées  que nous devons utiliser pour réinitialiser votre mot de passe.",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 11.5.sp,
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 2.h,
               ),
               RecupMethodItem(
                 method: OTPMethod.sms,
@@ -44,8 +45,8 @@ class PasswordRecupScreen extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 2.h,
               ),
               RecupMethodItem(
                 method: OTPMethod.mail,

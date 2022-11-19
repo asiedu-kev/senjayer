@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/ticket_cubit.dart';
@@ -191,7 +189,8 @@ class BuyTicketScreen extends StatelessWidget {
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) => const TicketInformationCard(),
+                      itemBuilder: (context, index) =>
+                          const TicketInformationCard(),
                       itemCount: state.itemCount,
                     );
                   },
@@ -199,7 +198,12 @@ class BuyTicketScreen extends StatelessWidget {
                 SizedBox(
                   height: 3.h,
                 ),
-                RoundedButton(onPressed: () {}, label: "Continuer"),
+                RoundedButton(
+                    onPressed: () => Navigator.of(context).pushNamed(
+                        "/choosePaymentMethod",
+                        arguments: BlocProvider.of<TicketCubit>(context)
+                            .getTotalAmount()),
+                    label: "Continuer"),
               ],
             ),
           ),

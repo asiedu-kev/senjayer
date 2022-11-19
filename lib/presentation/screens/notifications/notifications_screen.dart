@@ -3,6 +3,7 @@ import 'package:senjayer/data/models/notification.dart';
 import 'package:senjayer/presentation/screens/notifications/widget/no_notification_widget.dart';
 import 'package:senjayer/presentation/screens/notifications/widget/notification_card.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
+import 'package:sizer/sizer.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -48,73 +49,82 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: !hasNotification
           ? const NoNotificationWidget()
           : Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.w,
               ),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Aujourdhui, 31 Mars 2022",
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 11.5.sp),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions1[0],
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions1[1],
                     ),
-                    const Text(
-                      "Mardi, 29 Mars 2022",
-                      style: TextStyle(fontSize: 16),
+                    SizedBox(
+                      height: 2.h,
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Text(
+                      "Mardi, 29 Mars 2022",
+                      style: TextStyle(fontSize: 11.5.sp),
+                    ),
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions2[0],
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions2[1],
                     ),
-                    const Text(
-                      "Aujourdhui, 31 Mars 2022",
-                      style: TextStyle(fontSize: 16),
+                    SizedBox(
+                      height: 2.h,
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Text(
+                      "Aujourdhui, 31 Mars 2022",
+                      style: TextStyle(fontSize: 11.5.sp),
+                    ),
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions1[0],
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions1[1],
                     ),
-                    const Text(
-                      "Mardi, 29 Mars 2022",
-                      style: TextStyle(fontSize: 16),
+                    SizedBox(
+                      height: 2.h,
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Text(
+                      "Mardi, 29 Mars 2022",
+                      style: TextStyle(fontSize: 11.5.sp),
+                    ),
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions1[0],
                     ),
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(
+                      height: 1.h,
                     ),
                     NotificationCard(
                       notification: notifiactions1[1],

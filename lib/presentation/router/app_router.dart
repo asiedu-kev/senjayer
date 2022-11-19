@@ -3,14 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
 import 'package:senjayer/business_logic/cubit/password_cubit.dart';
+import 'package:senjayer/business_logic/cubit/payment_method_cubit.dart';
 import 'package:senjayer/business_logic/cubit/ticket_cubit.dart';
 import 'package:senjayer/data/models/event_list.dart';
+import 'package:senjayer/presentation/screens/actor_detail/actor_detail_screen.dart';
 import 'package:senjayer/presentation/screens/authentication/login/login_screen.dart';
 import 'package:senjayer/presentation/screens/buy_ticket/buy_ticket_screen.dart';
+import 'package:senjayer/presentation/screens/choose_payment_method/choose_payment_method_screen.dart';
 import 'package:senjayer/presentation/screens/event_detail/event_detail_screen.dart';
 import 'package:senjayer/presentation/screens/event_list/event_list_screen.dart';
 import 'package:senjayer/presentation/screens/favorites/favorite_screen.dart';
 import 'package:senjayer/presentation/screens/main_screen/main_screen.dart';
+import 'package:senjayer/presentation/screens/news_detail/news_detail_screen.dart';
 import 'package:senjayer/presentation/screens/notifications/notifications_screen.dart';
 import 'package:senjayer/presentation/screens/organizer_detail/organizer_detail_screen.dart';
 import 'package:senjayer/presentation/screens/otp/otp_screen.dart';
@@ -19,6 +23,7 @@ import 'package:senjayer/presentation/screens/onboarding/onboarding_screen.dart'
 import 'package:senjayer/presentation/screens/password_recovery/new_password_screen.dart';
 import 'package:senjayer/presentation/screens/password_recovery/password_recup_screen.dart';
 import 'package:senjayer/presentation/screens/password_recovery/successful_operation.dart';
+import 'package:senjayer/presentation/screens/room_detail/room_detail_screen.dart';
 import 'package:senjayer/presentation/screens/splash/splash_screen.dart';
 import 'package:senjayer/presentation/screens/spotlight/spotlight_screen.dart';
 
@@ -94,12 +99,31 @@ class AppRouter {
       case '/organizerDetail':
         return MaterialPageRoute(builder: (_) => const OrganizerDetailScreen());
 
+      case '/actorDetail':
+        return MaterialPageRoute(builder: (_) => const ActorDetailScreen());
+
       case '/buyTicket':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => TicketCubit(),
-                  child: const BuyTicketScreen(),
-                ));
+          builder: (_) => BlocProvider(
+            create: (context) => TicketCubit(),
+            child: const BuyTicketScreen(),
+          ),
+        );
+
+      case '/choosePaymentMethod':
+      final argument = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => PaymentMethodCubit(),
+            child: ChoosePaymentMethodScreen(totalAmount: argument),
+          ),
+        );
+
+      case '/newsDetail':
+        return MaterialPageRoute(builder: (_) => const NewsDetailScreen());
+
+      case '/roomDetail':
+        return MaterialPageRoute(builder: (_) => const RoomDetailScreen());
 
       default:
         return MaterialPageRoute(builder: (_) => const LoginScreen());

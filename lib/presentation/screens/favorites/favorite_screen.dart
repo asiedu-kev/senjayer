@@ -6,6 +6,7 @@ import 'package:senjayer/presentation/screens/notifications/widget/no_notificati
 import 'package:senjayer/presentation/screens/notifications/widget/notification_card.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/event_card.dart';
+import 'package:sizer/sizer.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -51,8 +52,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       body: !hasFavorite
           ? const NoFavoriteWidget()
           : Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25,
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.w,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -60,7 +61,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   children: List<Widget>.generate(
                     9,
                     (index) => Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
+                      padding: EdgeInsets.only(bottom: 2.h),
                       child: EventDetailCard(
                         event: demoFavoriteEvents[index % 3],
                         isLarge: true,

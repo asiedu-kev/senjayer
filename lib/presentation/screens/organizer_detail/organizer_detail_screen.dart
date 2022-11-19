@@ -91,7 +91,7 @@ class OrganizerDetailScreen extends StatelessWidget {
                               Text(
                                 'Suivre',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 13.sp,
                                   color: AppConstants().purple,
                                   fontWeight: FontWeight.values[5],
                                 ),
@@ -121,7 +121,7 @@ class OrganizerDetailScreen extends StatelessWidget {
                             Text(
                               'Message',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 13.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.values[5],
                               ),

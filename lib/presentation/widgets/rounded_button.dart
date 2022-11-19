@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class RoundedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String label;
   final Color? color;
+  final double? height;
   const RoundedButton({
     Key? key,
     required this.onPressed,
     required this.label,
     this.color,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -17,7 +20,7 @@ class RoundedButton extends StatelessWidget {
     return MaterialButton(
       onPressed: onPressed,
       elevation: 0,
-      height: 48,
+      height: height?? 6.h,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           40,
@@ -33,7 +36,7 @@ class RoundedButton extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 13.5.sp,
                 color: Colors.white,
                 fontWeight: FontWeight.values[5],
               ),
