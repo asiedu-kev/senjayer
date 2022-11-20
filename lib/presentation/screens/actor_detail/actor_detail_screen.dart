@@ -12,7 +12,7 @@ class ActorDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ArrowBackAppBar(title: "Acteur", leadingFunction: () {})
+      appBar: ArrowBackAppBar(title: "Acteur", actionFunction: () {})
           .build(context),
       body: SafeArea(
         child: Padding(

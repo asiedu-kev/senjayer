@@ -61,13 +61,14 @@ class EventDetailCard extends StatelessWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text(
-                            event.title,
-                            style: TextStyle(
-                              fontSize: 13.5.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      children: [
+                        Text(
+                          event.title,
+                          style: TextStyle(
+                            fontSize: 13.5.sp,
+                            fontWeight: FontWeight.bold,
                           ),
+                        ),
                         SizedBox(
                           height: 0.7.h,
                         ),

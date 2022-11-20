@@ -12,7 +12,7 @@ class OrganizerDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ArrowBackAppBar(title: "Organisateur", leadingFunction: () {})
+      appBar: ArrowBackAppBar(title: "Organisateur", actionFunction: () {})
           .build(context),
       body: SafeArea(
         child: Padding(

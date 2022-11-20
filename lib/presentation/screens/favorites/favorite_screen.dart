@@ -47,7 +47,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: ArrowBackAppBar(
         title: "Favoris",
-        leadingFunction: () {},
+        actionFunction: () {},
       ).build(context),
       body: !hasFavorite
           ? const NoFavoriteWidget()

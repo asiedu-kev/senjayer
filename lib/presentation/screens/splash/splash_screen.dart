@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   init() async {
     await Future.delayed(const Duration(seconds: 5)).then(
-      (value) => Navigator.of(context).pushReplacementNamed("/passwordRecup"),
+      (value) => Navigator.of(context).pushReplacementNamed("/main"),
     );
   }
 

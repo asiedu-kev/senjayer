@@ -19,7 +19,7 @@ class ChoosePaymentMethodScreen extends StatelessWidget {
     return Scaffold(
       appBar: ArrowBackAppBar(
         title: "Acheter votre ticket",
-        leadingFunction: () {},
+        actionFunction: () {},
       ).build(context),
       body: SafeArea(
         child: Padding(

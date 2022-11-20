@@ -79,13 +79,16 @@ class _MainScreenState extends State<MainScreen> {
                 SizedBox(
                  width: 3.w,
                 ),
-                Container(
-                  height: 9.w,
-                  width: 9.w,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/profile_picture.png"),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed("/profile"),
+                  child: Container(
+                    height: 9.w,
+                    width: 9.w,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/profile_picture.png"),
+                      ),
                     ),
                   ),
                 )

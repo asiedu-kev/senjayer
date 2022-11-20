@@ -4,11 +4,11 @@ import 'package:sizer/sizer.dart';
 
 class ArrowBackAppBar extends StatelessWidget {
   final String title;
-  final VoidCallback? leadingFunction;
+  final VoidCallback? actionFunction;
   const ArrowBackAppBar({
     Key? key,
     required this.title,
-    this.leadingFunction,
+    this.actionFunction,
   }) : super(key: key);
 
   @override
@@ -32,9 +32,9 @@ class ArrowBackAppBar extends StatelessWidget {
         ),
       ),
       actions: [
-        if (leadingFunction != null)
+        if (actionFunction != null)
           GestureDetector(
-            onTap: leadingFunction,
+            onTap: actionFunction,
             child: Container(
               margin: EdgeInsets.only(right: 3.w),
               height: 5.w,

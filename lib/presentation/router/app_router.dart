@@ -6,16 +6,21 @@ import 'package:senjayer/business_logic/cubit/password_cubit.dart';
 import 'package:senjayer/business_logic/cubit/payment_method_cubit.dart';
 import 'package:senjayer/business_logic/cubit/ticket_cubit.dart';
 import 'package:senjayer/data/models/event_list.dart';
+import 'package:senjayer/presentation/screens/FAQ/faq_screen.dart';
+import 'package:senjayer/presentation/screens/about_us/about_us_screen.dart';
 import 'package:senjayer/presentation/screens/actor_detail/actor_detail_screen.dart';
 import 'package:senjayer/presentation/screens/authentication/login/login_screen.dart';
 import 'package:senjayer/presentation/screens/buy_ticket/buy_ticket_screen.dart';
 import 'package:senjayer/presentation/screens/choose_payment_method/choose_payment_method_screen.dart';
+import 'package:senjayer/presentation/screens/contact_us/contact_us_screen.dart';
+import 'package:senjayer/presentation/screens/edit_profile/edit_profile_screen.dart';
 import 'package:senjayer/presentation/screens/event_detail/event_detail_screen.dart';
 import 'package:senjayer/presentation/screens/event_list/event_list_screen.dart';
 import 'package:senjayer/presentation/screens/favorites/favorite_screen.dart';
 import 'package:senjayer/presentation/screens/main_screen/main_screen.dart';
 import 'package:senjayer/presentation/screens/news_detail/news_detail_screen.dart';
 import 'package:senjayer/presentation/screens/notifications/notifications_screen.dart';
+import 'package:senjayer/presentation/screens/notifications_setting/notifications_setting_screen.dart';
 import 'package:senjayer/presentation/screens/organizer_detail/organizer_detail_screen.dart';
 import 'package:senjayer/presentation/screens/otp/otp_screen.dart';
 import 'package:senjayer/presentation/screens/authentication/signup/signup_screen.dart';
@@ -23,9 +28,12 @@ import 'package:senjayer/presentation/screens/onboarding/onboarding_screen.dart'
 import 'package:senjayer/presentation/screens/password_recovery/new_password_screen.dart';
 import 'package:senjayer/presentation/screens/password_recovery/password_recup_screen.dart';
 import 'package:senjayer/presentation/screens/password_recovery/successful_operation.dart';
+import 'package:senjayer/presentation/screens/profile/profile_screen.dart';
 import 'package:senjayer/presentation/screens/room_detail/room_detail_screen.dart';
+import 'package:senjayer/presentation/screens/settings/settings_screen.dart';
 import 'package:senjayer/presentation/screens/splash/splash_screen.dart';
 import 'package:senjayer/presentation/screens/spotlight/spotlight_screen.dart';
+import 'package:senjayer/presentation/screens/tickets/tickets_screen.dart';
 
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
@@ -124,6 +132,30 @@ class AppRouter {
 
       case '/roomDetail':
         return MaterialPageRoute(builder: (_) => const RoomDetailScreen());
+
+      case '/profile':
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => const SettingScreen());
+
+      case '/editProfile':
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
+
+      case '/tickets':
+        return MaterialPageRoute(builder: (_) => const TicketsScreen());
+      
+      case '/notificationsSetting':
+        return MaterialPageRoute(builder: (_) => const NotificationsSettingScreen());
+
+      case '/faq':
+        return MaterialPageRoute(builder: (_) => const FAQScreen());
+
+      case '/aboutUs':
+        return MaterialPageRoute(builder: (_) => const AboutUsScreen());
+
+      case '/contactUs':
+        return MaterialPageRoute(builder: (_) => const COntactUsScreen());
 
       default:
         return MaterialPageRoute(builder: (_) => const LoginScreen());

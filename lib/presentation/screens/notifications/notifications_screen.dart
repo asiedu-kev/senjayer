@@ -44,7 +44,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
       appBar: ArrowBackAppBar(
         title: "Notifications",
-        leadingFunction: () {},
+        actionFunction: () {},
       ).build(context),
       body: !hasNotification
           ? const NoNotificationWidget()
