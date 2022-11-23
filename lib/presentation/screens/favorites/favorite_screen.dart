@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
-import 'package:senjayer/data/models/notification.dart';
 import 'package:senjayer/presentation/screens/favorites/widgets/no_favorite_widget.dart';
-import 'package:senjayer/presentation/screens/notifications/widget/no_notification_widget.dart';
-import 'package:senjayer/presentation/screens/notifications/widget/notification_card.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/event_card.dart';
 import 'package:sizer/sizer.dart';

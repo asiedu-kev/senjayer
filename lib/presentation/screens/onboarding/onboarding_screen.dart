@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_bloc.dart';
+import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.dart';
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
+import 'package:senjayer/data/repositories/auth_repository.dart';
+import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -82,7 +86,11 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              BlocProvider.of<OnboardingBloc>(context)
+                                  .add(SeenOnboarding());
+                              Navigator.of(context).pushNamed('/login');
+                            },
                             child: Text(
                               "Passer",
                               style: TextStyle(
@@ -96,14 +104,26 @@ class OnBoardingScreen extends StatelessWidget {
                           SizedBox(
                             height: 1.h,
                           ),
-                          RoundedButton(onPressed: () {
+                          RoundedButton(
+                            onPressed: () async {
                               if (state.index == state.items.length - 1) {
+                                BlocProvider.of<OnboardingBloc>(context)
+                                    .add(SeenOnboarding());
                                 Navigator.of(context).pushNamed('/login');
                               } else {
                                 BlocProvider.of<OnBoardingCubit>(context)
                                     .goToNextItem();
                               }
-                            }, label: "Suivant"),
+                              /*  await AuthRepository().login(
+                                "DJIKPE Orphée",
+                                "66613755",
+                                "djikpeo@gmail.com",
+                                "MotDePasse",
+                                "MotDePasse",
+                              ); */
+                            },
+                            label: "Suivant",
+                          ),
                           const Spacer(),
                         ],
                       );

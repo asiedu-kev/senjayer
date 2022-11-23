@@ -3,7 +3,6 @@ import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/pin_entry.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
-import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class OTPScreen extends StatelessWidget {

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:senjayer/presentation/screens/notifications_setting/widgets/notification_switch.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
-import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class NotificationsSettingScreen extends StatelessWidget {

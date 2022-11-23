@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/presentation/widgets/event_card.dart';
 import 'package:senjayer/utils/constants.dart';

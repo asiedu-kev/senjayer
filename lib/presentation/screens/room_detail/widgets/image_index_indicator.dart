@@ -41,7 +41,7 @@ class ImageIndexIndicator extends StatelessWidget {
                   ),
                   height: 2.w,
                   width: 2.w,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
                   ),

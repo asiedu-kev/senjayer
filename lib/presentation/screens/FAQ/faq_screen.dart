@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/presentation/screens/FAQ/widgets/faq_section.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
-import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class FAQScreen extends StatelessWidget {

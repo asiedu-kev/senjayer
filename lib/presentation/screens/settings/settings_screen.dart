@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/bloc/auth_bloc/auth.dart';
 import 'package:senjayer/presentation/screens/settings/widgets/setting_section_item.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
@@ -98,7 +100,15 @@ class SettingScreen extends StatelessWidget {
                                       horizontal: 5.w,
                                     ),
                                     child: RoundedButton(
-                                        onPressed: () {}, label: "Quitter"),
+                                        onPressed: () {
+                                          BlocProvider.of<AuthenticationBloc>(
+                                                  context)
+                                              .add(LoggedOut());
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                        label: "Quitter"),
                                   ),
                                 ),
                                 Expanded(
@@ -107,7 +117,9 @@ class SettingScreen extends StatelessWidget {
                                         horizontal: 5.w,
                                       ),
                                       child: MaterialButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
                                         elevation: 0,
                                         height: 6.h,
                                         shape: RoundedRectangleBorder(
@@ -122,8 +134,10 @@ class SettingScreen extends StatelessWidget {
                                             vertical: 5,
                                           ),
                                           decoration: BoxDecoration(
-                                            border: Border.all(color: AppConstants().purple),
-                                            borderRadius: BorderRadius.circular(25),
+                                            border: Border.all(
+                                                color: AppConstants().purple),
+                                            borderRadius:
+                                                BorderRadius.circular(25),
                                           ),
                                           child: Row(
                                             children: [

@@ -57,8 +57,8 @@ class EditDropDownField extends StatelessWidget {
             ),
             items: items
                 .map((item) => DropdownMenuItem<String>(
-                      child: Text(item),
                       value: item,
+                      child: Text(item),
                     ))
                 .toList(),
             onChanged: (_) {}),

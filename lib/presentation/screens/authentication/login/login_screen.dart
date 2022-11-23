@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/bloc/login_bloc/login.dart';
 import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
+import 'package:senjayer/presentation/widgets/loading_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -15,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late bool rememberMe;
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -26,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _phoneController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -61,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 3.h,
                   ),
-                 Text(
+                  Text(
                     "Connexion",
                     style: TextStyle(
                       fontSize: 18.sp,
@@ -76,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 4.w),
                       child: Text(
-                        "Email",
+                        "Numéro de téléphone",
                         style: TextStyle(
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
@@ -88,21 +91,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 0.5.h,
                   ),
                   TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(hintText: "Adresse mail"),
+                    controller: _phoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration:
+                        const InputDecoration(hintText: "Numéro de téléphone"),
                     validator: (value) {
                       if (value == null) {
-                        return "Erreur";
+                        return "Veuillez entrer un numéro";
                       }
                       if (value.isEmpty) {
-                        return "Adresse mail invalide";
+                        return "Veuillez entrer un numéro";
                       }
-                      if (RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value.trim())) {
+                      if (int.tryParse(value) != null) {
                         return null;
                       } else {
-                        return "Adresse mail invalide";
+                        return "Numéro invalide";
                       }
                     },
                   ),
@@ -188,16 +191,41 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-                  RoundedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                  BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      if (state is LoginFailure) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(state.error.toString()),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     },
-                    label: "Se connecter",
+                    builder: (context, state) {
+                      if (state is LoginLoading) {
+                        return const LoadingButton();
+                      } else {
+                        return RoundedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<LoginBloc>(context).add(
+                                LoginButtonPressed(
+                                  phone: _phoneController.text,
+                                  password: _passwordController.text,
+                                ),
+                              );
+                            }
+                          },
+                          label: "Se connecter",
+                        );
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 3.h,
                   ),
-                   Text(
+                  Text(
                     "ou poursuivre avec",
                     style: TextStyle(
                       fontSize: 10.sp,

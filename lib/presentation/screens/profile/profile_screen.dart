@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:senjayer/presentation/screens/profile/widgets/activity_count_item.dart';
 import 'package:senjayer/presentation/screens/profile/widgets/interest_center_chip.dart';
@@ -142,7 +140,7 @@ class ProfileScreen extends StatelessWidget {
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => TicketItem(),
+                    itemBuilder: (context, index) => const TicketItem(),
                     itemCount: 5,
                   ),
                 ),

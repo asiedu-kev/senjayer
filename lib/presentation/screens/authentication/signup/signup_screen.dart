@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/bloc/signup_bloc/signup.dart';
 import 'package:senjayer/business_logic/cubit/password_cubit.dart';
-import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
+import 'package:senjayer/presentation/widgets/loading_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -17,6 +18,7 @@ class SingupScreen extends StatefulWidget {
 
 class _SingupScreenState extends State<SingupScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -74,6 +76,39 @@ class _SingupScreenState extends State<SingupScreen> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 5.w),
                       child: Text(
+                        "Nom",
+                        style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 0.5.h,
+                  ),
+                  TextFormField(
+                    controller: _nameController,
+                    decoration:
+                        const InputDecoration(hintText: "Nom d'utilisateur"),
+                    validator: (value) {
+                      if (value == null) {
+                        return "Erreur";
+                      }
+                      if (value.isEmpty) {
+                        return "Nom invalide";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 5.w),
+                      child: Text(
                         "Email",
                         style: TextStyle(
                           fontSize: 10.sp,
@@ -87,6 +122,7 @@ class _SingupScreenState extends State<SingupScreen> {
                   ),
                   TextFormField(
                     controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(hintText: "Adresse mail"),
                     validator: (value) {
                       if (value == null) {
@@ -119,6 +155,7 @@ class _SingupScreenState extends State<SingupScreen> {
                   ),
                   TextFormField(
                     controller: _phoneNumberController,
+                    keyboardType: TextInputType.phone,
                     decoration:
                         const InputDecoration(hintText: "Numéro de téléphone"),
                     validator: (value) {
@@ -137,7 +174,7 @@ class _SingupScreenState extends State<SingupScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
                         "Mot de passe",
                         style: TextStyle(
@@ -245,19 +282,46 @@ class _SingupScreenState extends State<SingupScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-                  RoundedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.of(context).pushNamed(
-                            "/otp",
-                            arguments: {
-                              'title': "Inscription",
-                              'otp_method': OTPMethod.sms,
-                            },
-                          );
-                        }
-                      },
-                      label: "S'inscrire"),
+                  BlocConsumer<SignupBloc, SignupState>(
+                    listener: (context, state) {
+                      if (state is SignupFailure) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(state.error.toString()),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is SignupLoading) {
+                        return const LoadingButton();
+                      }
+                      return RoundedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<SignupBloc>(context).add(
+                                SignupButtonPressed(
+                                  name: _nameController.text,
+                                  phone: _phoneNumberController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                  passwordConfirmation:
+                                      _passwordController.text,
+                                ),
+                              );
+                              /* Navigator.of(context).pushNamed(
+                                "/otp",
+                                arguments: {
+                                  'title': "Inscription",
+                                  'otp_method': OTPMethod.sms,
+                                },
+                              ); */
+                            }
+                          },
+                          label: "S'inscrire");
+                    },
+                  ),
                   SizedBox(
                     height: 3.h,
                   ),

@@ -63,7 +63,7 @@ class RoomCard extends StatelessWidget {
                             alignment: Alignment.center,
                             height: 3.7.w,
                             width: 3.7.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
@@ -96,7 +96,7 @@ class RoomCard extends StatelessWidget {
                             alignment: Alignment.center,
                             height: 3.7.w,
                             width: 3.7.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                             child: Icon(

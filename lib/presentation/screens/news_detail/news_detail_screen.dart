@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
