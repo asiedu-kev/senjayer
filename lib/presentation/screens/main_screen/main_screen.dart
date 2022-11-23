@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/cubit/category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
+import 'package:senjayer/business_logic/cubit/topic_cubit.dart';
+import 'package:senjayer/business_logic/cubit/room_category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/search_cubit.dart';
+import 'package:senjayer/presentation/screens/main_screen/pages/actor_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/home_page.dart';
+import 'package:senjayer/presentation/screens/main_screen/pages/location_page.dart';
+import 'package:senjayer/presentation/screens/main_screen/pages/news_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/bottom_nav_bar_item.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
+import 'package:sizer/sizer.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -20,32 +27,111 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
+      body: Column(
         children: [
-          MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => CategoryCubit(),
-              ),
-              BlocProvider(
-                create: (context) => SearchCubit(),
-              ),
-            ],
-            child: HomePage(),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              5.w,
+              MediaQuery.of(context).padding.top + 2.h,
+              5.w,
+              0,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  height: 8.3.w,
+                  width: 8.3.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                    shape: BoxShape.circle,
+                    image: const DecorationImage(
+                      image: AssetImage(
+                        "assets/icons/app_icon.png",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Text(
+                  "Senjayer",
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                        fontSize: 10.5.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const Spacer(),
+                HomeActionButton(
+                  icon: Icons.notifications,
+                  onTap: () =>
+                      Navigator.of(context).pushNamed("/notifications"),
+                ),
+                SizedBox(
+                  width: 3.w,
+                ),
+                HomeActionButton(
+                  icon: Icons.bookmark,
+                  onTap: () => Navigator.of(context).pushNamed("/favorites"),
+                ),
+                SizedBox(
+                 width: 3.w,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed("/profile"),
+                  child: Container(
+                    height: 9.w,
+                    width: 9.w,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/profile_picture.png"),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.purple,
-          ),
-          Container(
-            color: Colors.green,
-          ),
-          Container(
-            color: Colors.orange,
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => CategoryCubit(),
+                    ),
+                    BlocProvider(
+                      create: (context) => SearchCubit(),
+                    ),
+                  ],
+                  child: const HomePage(),
+                ),
+                BlocProvider(
+                  create: (context) => TopicCubit(),
+                  child: const NewsPage(),
+                ),
+                Container(
+                  color: Colors.purple,
+                ),
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => RoomCategoryCubit(),
+                    ),
+                    BlocProvider(
+                      create: (context) => TopicCubit(),
+                    ),
+                  ],
+                  child: const LocationPage(),
+                ),
+                const ActorsPage(),
+              ],
+            ),
           ),
         ],
       ),
@@ -62,7 +148,7 @@ class _MainScreenState extends State<MainScreen> {
             )
           ],
         ),
-        height: 96,
+        height: 10.h,
         child: BlocBuilder<MainScreenCubit, MainScreenState>(
           builder: (context, state) {
             return Row(

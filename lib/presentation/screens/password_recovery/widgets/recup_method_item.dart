@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class RecupMethodItem extends StatelessWidget {
   final OTPMethod method;
@@ -19,11 +20,11 @@ class RecupMethodItem extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 128,
+        height: 14.h,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 23,
-          vertical: 26,
+        padding: EdgeInsets.symmetric(
+          horizontal: 5.w,
+          vertical: 5.w,
         ),
         decoration: BoxDecoration(
           border: Border.all(
@@ -35,8 +36,8 @@ class RecupMethodItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 76,
-              width: 76,
+              height: 18.w,
+              width: 18.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppConstants().lightPurple,
@@ -44,11 +45,11 @@ class RecupMethodItem extends StatelessWidget {
               child: Icon(
                 icon,
                 color: AppConstants().purple,
-                size: 30,
+                size: 22.sp,
               ),
             ),
-            const SizedBox(
-              width: 10,
+             SizedBox(
+              width: 2.w,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,8 +57,8 @@ class RecupMethodItem extends StatelessWidget {
               children: [
                 Text(
                   method.toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: 10.sp,
                   ),
                 ),
                 const SizedBox(
@@ -65,8 +66,10 @@ class RecupMethodItem extends StatelessWidget {
                 ),
                 Text(
                   coordonate,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 11.5.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

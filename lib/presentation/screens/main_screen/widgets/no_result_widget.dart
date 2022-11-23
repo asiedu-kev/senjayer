@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class NoResultWidget extends StatelessWidget {
   const NoResultWidget({Key? key}) : super(key: key);
@@ -11,8 +12,8 @@ class NoResultWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 170,
-            width: 170,
+            height: 40.w,
+            width: 40.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: AppConstants().lightPurple,
@@ -20,25 +21,25 @@ class NoResultWidget extends StatelessWidget {
             child: Icon(
               Icons.sentiment_dissatisfied,
               color: AppConstants().purple,
-              size: 80,
+              size: 60.sp,
             ),
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 1.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/5,),
+            padding: EdgeInsets.symmetric(horizontal: 20.w,),
             child: Text(
               "Aucun résultat trouvé",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: 24,
+                    fontSize: 17.5.sp,
                     fontWeight: FontWeight.bold,
                   ),
             ),
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 1.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/5,),
@@ -46,7 +47,7 @@ class NoResultWidget extends StatelessWidget {
               "Veuillez essayer un autre mot-clé",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1!.copyWith(
-                    fontSize: 14,
+                    fontSize: 10.sp,
                   ),
             ),
           ),

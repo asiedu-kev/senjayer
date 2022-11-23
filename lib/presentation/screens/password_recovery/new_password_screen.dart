@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   const NewPasswordScreen({Key? key}) : super(key: key);
@@ -31,41 +32,41 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
       appBar: const ArrowBackAppBar(title: "Mot de passe oublie").build(context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
+                 SizedBox(
+                  height: 2.h,
                 ),
-                const Align(
+                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Créer un nouveau mot de passe",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 11.5.sp,
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 25,
+                SizedBox(
+                  height: 2.5.h,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 20.0),
+                    padding: EdgeInsets.only(left: 4.w),
                     child: Text(
                       "Mot de passe",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                 SizedBox(
+                  height: 0.5.h,
                 ),
                 TextFormField(
                   controller: _passwordController,
@@ -80,24 +81,24 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 2.h,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 20.0),
+                    padding: EdgeInsets.only(left: 4.w),
                     child: Text(
                       "Confirmer mot de passe",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 0.5.h,
                 ),
                 TextFormField(
                   controller: _confirmedPasswordController,
@@ -113,14 +114,14 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 25,
+                SizedBox(
+                  height: 2.5.h,
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 25,
+                    padding: EdgeInsets.only(
+                      left: 5.w,
                     ),
                     child: GestureDetector(
                       onTap: () => setState(() {
@@ -133,20 +134,20 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               ? Icon(
                                   Icons.check_box_rounded,
                                   color: AppConstants().purple,
-                                  size: 18,
+                                  size: 14.sp,
                                 )
                               : Icon(
                                   Icons.check_box_outline_blank_rounded,
                                   color: AppConstants().purple,
-                                  size: 18,
+                                  size: 14.sp,
                                 ),
                           const SizedBox(
                             width: 10,
                           ),
-                          const Text(
+                          Text(
                             "Garder ma session active",
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -162,8 +163,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   },
                   label: 'Valider',
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 2.h,
                 ),
               ],
             ),

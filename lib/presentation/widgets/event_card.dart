@@ -3,6 +3,7 @@ import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/presentation/widgets/event_detail_item.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:senjayer/utils/util_functions.dart';
+import 'package:sizer/sizer.dart';
 
 class EventDetailCard extends StatelessWidget {
   final Event event;
@@ -20,14 +21,14 @@ class EventDetailCard extends StatelessWidget {
         "/eventDetail",
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
+        padding: EdgeInsets.only(left: 2.w),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
           child: Container(
-            height: 268,
-            width: isLarge ? double.infinity : 221,
+            height: 30.h,
+            width: isLarge ? double.infinity : 50.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -51,7 +52,7 @@ class EventDetailCard extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Container(
-                    padding: const EdgeInsets.all(15),
+                    padding: EdgeInsets.all(2.w),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
@@ -61,32 +62,29 @@ class EventDetailCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            event.title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Text(
+                          event.title,
+                          style: TextStyle(
+                            fontSize: 13.5.sp,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(
-                          height: 7,
+                        SizedBox(
+                          height: 0.7.h,
                         ),
                         EventDetailItem(
                           icon: Icons.event,
                           data: formatDate(event.date),
                         ),
-                        const SizedBox(
-                          height: 7,
+                        SizedBox(
+                          height: 0.7.h,
                         ),
                         EventDetailItem(
                           icon: Icons.local_activity,
                           data: event.price.toString(),
                         ),
-                        const SizedBox(
-                          height: 7,
+                        SizedBox(
+                          height: 0.7.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +95,7 @@ class EventDetailCard extends StatelessWidget {
                             ),
                             Icon(
                               Icons.bookmark_border,
-                              size: 14,
+                              size: 11.sp,
                               color: AppConstants().mediumPurple,
                             ),
                           ],

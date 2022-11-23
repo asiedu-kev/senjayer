@@ -3,6 +3,7 @@ import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/presentation/widgets/event_detail_item.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:senjayer/utils/util_functions.dart';
+import 'package:sizer/sizer.dart';
 
 class EventListItemCard extends StatelessWidget {
   final Event event;
@@ -14,8 +15,8 @@ class EventListItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 15.0,
+      padding: EdgeInsets.only(
+        bottom: 1.5.h,
       ),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -24,7 +25,7 @@ class EventListItemCard extends StatelessWidget {
           ),
         ),
         child: Container(
-          height: 154,
+          height: 17.h,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -56,9 +57,9 @@ class EventListItemCard extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 15,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: 1.5.h,
                     ),
                     child: Stack(
                       alignment: Alignment.centerLeft,
@@ -67,7 +68,7 @@ class EventListItemCard extends StatelessWidget {
                           alignment: Alignment.topRight,
                           child: Icon(
                             Icons.bookmark_border,
-                            size: 25,
+                            size: 18.sp,
                             color: AppConstants().mediumPurple,
                           ),
                         ),
@@ -77,8 +78,8 @@ class EventListItemCard extends StatelessWidget {
                           children: [
                             Text(
                               event.title,
-                              style: const TextStyle(
-                                fontSize: 18,
+                              style: TextStyle(
+                                fontSize: 13.5.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

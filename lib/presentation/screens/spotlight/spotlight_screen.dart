@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/presentation/screens/spotlight/widgets/spotlight_event_card.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
-import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class SpotlightScreen extends StatelessWidget {
   const SpotlightScreen({
@@ -15,8 +15,8 @@ class SpotlightScreen extends StatelessWidget {
       appBar: const ArrowBackAppBar(title: "A la une").build(context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 25,
+          padding: EdgeInsets.symmetric(
+            horizontal: 5.w,
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

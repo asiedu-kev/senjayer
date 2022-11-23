@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/presentation/widgets/event_card.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class EventListWidget extends StatelessWidget {
   final EventList eventList;
@@ -17,15 +17,15 @@ class EventListWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Text(
                 eventList.listTitle,
                 style:
-                    TextStyle(fontSize: 18, fontWeight: FontWeight.values[5]),
+                    TextStyle(fontSize: 13.5.sp, fontWeight: FontWeight.values[5]),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: TextButton(
                 onPressed: () => Navigator.of(context).pushNamed(
                   "/eventList",
@@ -34,7 +34,7 @@ class EventListWidget extends StatelessWidget {
                 child: Text(
                   "voir plus",
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 9.sp,
                     fontWeight: FontWeight.values[5],
                     color: AppConstants().mediumPurple,
                   ),
@@ -44,7 +44,7 @@ class EventListWidget extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 268,
+          height: 32.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class EventDetailItem extends StatelessWidget {
   final IconData icon;
@@ -18,16 +19,16 @@ class EventDetailItem extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 12,
+          size: 9.sp,
           color: AppConstants().mediumPurple,
         ),
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: 1.h,
         ),
         Text(
           data,
-          style: const TextStyle(
-            fontSize: 12,
+          style: TextStyle(
+            fontSize: 9.sp,
           ),
         )
       ],

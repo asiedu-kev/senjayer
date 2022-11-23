@@ -3,6 +3,7 @@ import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/presentation/widgets/event_list_item_card.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
+import 'package:sizer/sizer.dart';
 
 class EventListScreen extends StatelessWidget {
   final EventList eventList;
@@ -17,8 +18,8 @@ class EventListScreen extends StatelessWidget {
       appBar: ArrowBackAppBar(title: eventList.listTitle).build(context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 25,
+          padding: EdgeInsets.symmetric(
+            horizontal: 5.w,
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

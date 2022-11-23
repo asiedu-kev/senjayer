@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryItem extends StatelessWidget {
   final bool isSelected;
@@ -18,14 +19,17 @@ class CategoryItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 35,
-        width: 90,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
+        height: 4.5.h,
+        padding: EdgeInsets.symmetric(
+          vertical: 1.h,
+          horizontal: 5.w,
+        ),
+        margin: EdgeInsets.symmetric(
+          horizontal: 2.w,
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected? AppConstants().purple :Colors.white,
+          color: isSelected ? AppConstants().purple : Colors.white,
           borderRadius: BorderRadius.circular(40),
           border: Border.all(
             color: AppConstants().purple,
@@ -34,9 +38,9 @@ class CategoryItem extends StatelessWidget {
         child: Text(
           label,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 13.sp,
             fontWeight: FontWeight.values[5],
-            color: isSelected? Colors.white : AppConstants().purple,
+            color: isSelected ? Colors.white : AppConstants().purple,
           ),
         ),
       ),

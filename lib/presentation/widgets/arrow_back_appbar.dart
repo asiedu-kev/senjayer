@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class ArrowBackAppBar extends StatelessWidget {
   final String title;
-  final VoidCallback? leadingFunction;
+  final VoidCallback? actionFunction;
   const ArrowBackAppBar({
     Key? key,
     required this.title,
-    this.leadingFunction,
+    this.actionFunction,
   }) : super(key: key);
 
   @override
@@ -25,28 +26,29 @@ class ArrowBackAppBar extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 24,
+          fontSize: 18.5.sp,
           fontWeight: FontWeight.values[5],
           color: Colors.black,
         ),
       ),
       actions: [
-        if (leadingFunction != null)
+        if (actionFunction != null)
           GestureDetector(
-            onTap: leadingFunction,
+            onTap: actionFunction,
             child: Container(
-              margin: const EdgeInsets.only(right: 10),
-              height: 25,
-              width: 25,
+              margin: EdgeInsets.only(right: 3.w),
+              height: 5.w,
+              width: 5.w,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.black),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.more_horiz,
                 color: Colors.black,
-                size: 20,
+                size: 14.sp,
               ),
             ),
           )

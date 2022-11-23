@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/bloc/login_bloc/login.dart';
 import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
+import 'package:senjayer/presentation/widgets/loading_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late bool rememberMe;
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -25,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _phoneController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -36,14 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 5.h,
                   ),
                   const CircleAvatar(
                     radius: 32,
@@ -52,77 +56,77 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Senjayer",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18.sp,
                       color: AppConstants().purple,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 3.h,
                   ),
-                  const Text(
+                  Text(
                     "Connexion",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: EdgeInsets.only(left: 4.w),
                       child: Text(
-                        "Email",
+                        "Numéro de téléphone",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(hintText: "Adresse mail"),
+                    controller: _phoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration:
+                        const InputDecoration(hintText: "Numéro de téléphone"),
                     validator: (value) {
                       if (value == null) {
-                        return "Erreur";
+                        return "Veuillez entrer un numéro";
                       }
                       if (value.isEmpty) {
-                        return "Adresse mail invalide";
+                        return "Veuillez entrer un numéro";
                       }
-                      if (RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value.trim())) {
+                      if (int.tryParse(value) != null) {
                         return null;
                       } else {
-                        return "Adresse mail invalide";
+                        return "Numéro invalide";
                       }
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20.0),
+                      padding: EdgeInsets.only(left: 4.w),
                       child: Text(
                         "Mot de passe",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   TextFormField(
                     controller: _passwordController,
@@ -142,14 +146,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 25,
+                      padding: EdgeInsets.only(
+                        left: 5.w,
                       ),
                       child: GestureDetector(
                         onTap: () => setState(() {
@@ -172,10 +176,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
+                            Text(
                               "Garder ma session active",
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -184,26 +188,51 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
-                  RoundedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                  BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      if (state is LoginFailure) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(state.error.toString()),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     },
-                    label: "Se connecter",
+                    builder: (context, state) {
+                      if (state is LoginLoading) {
+                        return const LoadingButton();
+                      } else {
+                        return RoundedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<LoginBloc>(context).add(
+                                LoginButtonPressed(
+                                  phone: _phoneController.text,
+                                  password: _passwordController.text,
+                                ),
+                              );
+                            }
+                          },
+                          label: "Se connecter",
+                        );
+                      }
+                    },
                   ),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: 3.h,
                   ),
-                  const Text(
+                  Text(
                     "ou poursuivre avec",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 10.sp,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -212,16 +241,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             AuthMethodButton(authMethod: authMethod))
                         .toList(),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Vous n'avez pas encore de compte ?",
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 9.sp,
                         ),
                       ),
                       TextButton(
@@ -230,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "S'enregistrer",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 9.sp,
                             color: AppConstants().purple,
                             fontWeight: FontWeight.bold,
                           ),

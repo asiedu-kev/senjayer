@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/notification.dart' as nt;
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class NotificationCard extends StatelessWidget {
   final nt.Notification notification;
@@ -16,11 +17,11 @@ class NotificationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
+        padding: EdgeInsets.symmetric(
+          horizontal: 5.w,
+          vertical: 1.h,
         ),
-        height: 75,
+        height: 8.h,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -28,8 +29,8 @@ class NotificationCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              height: 45,
-              width: 45,
+              height: 10.5.w,
+              width: 10.5.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: notification.title == "Paiement accepté"
@@ -47,11 +48,11 @@ class NotificationCard extends StatelessWidget {
                     : notification.title == "Commande annulée"
                         ? AppConstants().red
                         : AppConstants().yellow,
-                size: 22,
+                size: 15.sp,
               ),
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: 2.w,
             ),
             Expanded(
               child: Column(
@@ -60,18 +61,18 @@ class NotificationCard extends StatelessWidget {
                 children: [
                   Text(
                     notification.title,
-                    style: const TextStyle(
-                      fontSize: 14,
+                    style: TextStyle(
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
+                  SizedBox(
+                    height: 0.5.h,
                   ),
                   Text(
                     notification.content,
-                    style: const TextStyle(
-                      fontSize: 10,
+                    style: TextStyle(
+                      fontSize: 7.5.sp,
                     ),
                   ),
                 ],

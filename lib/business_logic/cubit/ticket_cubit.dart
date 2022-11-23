@@ -41,4 +41,8 @@ class TicketCubit extends Cubit<TicketState> {
       TicketState(pricing: state.pricing, itemCount: state.itemCount > 1 ? state.itemCount - 1 : 1),
     );
   }
+
+  int getTotalAmount(){
+    return state.itemCount * state.pricing.price;
+  }
 }

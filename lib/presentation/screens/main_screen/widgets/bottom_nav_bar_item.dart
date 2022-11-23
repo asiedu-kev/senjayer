@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class BottomNavBarItem extends StatelessWidget {
   final String iconPath;
@@ -17,9 +18,9 @@ class BottomNavBarItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 50,
-        width: 50,
-        padding: const EdgeInsets.all(8.0),
+        height: 11.5.w,
+        width: 11.5.w,
+        padding: EdgeInsets.all(2.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color:

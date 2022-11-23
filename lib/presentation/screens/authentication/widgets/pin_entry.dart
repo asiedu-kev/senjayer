@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class PinEntryTextField extends StatefulWidget {
   const PinEntryTextField({
@@ -77,8 +78,8 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
 
     return Container(
       alignment: Alignment.center,
-      height: 75,
-      width: 75,
+      height: 17.5.w,
+      width: 17.5.w,
       decoration: BoxDecoration(
         border: Border.all(color: AppConstants().purple),
         borderRadius: BorderRadius.circular(20),
@@ -88,10 +89,9 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         maxLength: 1,
-        style: const TextStyle(
-          fontSize: 48,
-          color: Colors.black,/* 
-          fontWeight: FontWeight.bold, */
+        style: TextStyle(
+          fontSize: 44.sp,
+          color: Colors.black,
         ),
         focusNode: _focusNodes[i],
         decoration: const InputDecoration(

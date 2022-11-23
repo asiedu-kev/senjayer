@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_bloc.dart';
+import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.dart';
 import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
+import 'package:senjayer/data/repositories/auth_repository.dart';
+import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:sizer/sizer.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -31,7 +36,7 @@ class OnBoardingScreen extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  padding: EdgeInsets.symmetric(horizontal: 3.5.h),
                   child: BlocBuilder<OnBoardingCubit, OnBoardingState>(
                     builder: (context, state) {
                       return Column(
@@ -43,18 +48,18 @@ class OnBoardingScreen extends StatelessWidget {
                             state.items[state.index].title,
                             style:
                                 Theme.of(context).textTheme.headline1!.copyWith(
-                                      fontSize: 24,
+                                      fontSize: 18.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(
-                            height: 20,
+                          SizedBox(
+                            height: 2.h,
                           ),
                           Text(
                             state.items[state.index].subtitle,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 11.5.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.values[4],
                             ),
@@ -63,12 +68,10 @@ class OnBoardingScreen extends StatelessWidget {
                           const Spacer(),
                           Row(
                             mainAxisSize: MainAxisSize.min,
-                            /*
-                            mainAxisAlignment: MainAxisAlignment.center, */
                             children: state.items
                                 .map((onBoardingItem) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 5,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 0.5.h,
                                       ),
                                       child: CircleAvatar(
                                         backgroundColor: state.index ==
@@ -83,28 +86,44 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              BlocProvider.of<OnboardingBloc>(context)
+                                  .add(SeenOnboarding());
+                              Navigator.of(context).pushNamed('/login');
+                            },
                             child: Text(
                               "Passer",
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 13.5.sp,
                                 color: AppConstants().purple,
                                 fontWeight: FontWeight.values[5],
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 1.h,
                           ),
-                          RoundedButton(onPressed: () {
+                          RoundedButton(
+                            onPressed: () async {
                               if (state.index == state.items.length - 1) {
+                                BlocProvider.of<OnboardingBloc>(context)
+                                    .add(SeenOnboarding());
                                 Navigator.of(context).pushNamed('/login');
                               } else {
                                 BlocProvider.of<OnBoardingCubit>(context)
                                     .goToNextItem();
                               }
-                            }, label: "Suivant"),
+                              /*  await AuthRepository().login(
+                                "DJIKPE Orphée",
+                                "66613755",
+                                "djikpeo@gmail.com",
+                                "MotDePasse",
+                                "MotDePasse",
+                              ); */
+                            },
+                            label: "Suivant",
+                          ),
                           const Spacer(),
                         ],
                       );

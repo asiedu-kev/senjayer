@@ -12,7 +12,7 @@ class OrganizerDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ArrowBackAppBar(title: "Organisateur", leadingFunction: () {})
+      appBar: ArrowBackAppBar(title: "Organisateur", actionFunction: () {})
           .build(context),
       body: SafeArea(
         child: Padding(
@@ -91,7 +91,7 @@ class OrganizerDetailScreen extends StatelessWidget {
                               Text(
                                 'Suivre',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 13.sp,
                                   color: AppConstants().purple,
                                   fontWeight: FontWeight.values[5],
                                 ),
@@ -121,7 +121,7 @@ class OrganizerDetailScreen extends StatelessWidget {
                             Text(
                               'Message',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 13.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.values[5],
                               ),

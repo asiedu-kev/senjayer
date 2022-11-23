@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senjayer/presentation/widgets/logo_box.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
+import 'package:sizer/sizer.dart';
 
 class SuccessfulOperationScreen extends StatelessWidget {
   const SuccessfulOperationScreen({Key? key}) : super(key: key);
@@ -19,29 +20,29 @@ class SuccessfulOperationScreen extends StatelessWidget {
               Spacer(),
             ],
           ),
-          const SizedBox(
-            height: 70,
+          SizedBox(
+            height: 7.h,
           ),
           Text(
             "Mot de passe réinitialisé",
             style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: 24,
+                  fontSize: 18.5.sp,
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 1.h,
           ),
           Text(
             "Bon retour !",
             style: Theme.of(context).textTheme.headline1!.copyWith(
-                  fontSize: 24,
+                  fontSize: 18.5.sp,
                 ),
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
+            padding: EdgeInsets.symmetric(
+              horizontal: 5.w,
             ),
             child: RoundedButton(
               onPressed: () {
@@ -50,8 +51,8 @@ class SuccessfulOperationScreen extends StatelessWidget {
               label: "Retour à l’accueil",
             ),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 2.h,
           ),
         ],
       ),
