@@ -282,17 +282,7 @@ class _SingupScreenState extends State<SingupScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-                  BlocConsumer<SignupBloc, SignupState>(
-                    listener: (context, state) {
-                      if (state is SignupFailure) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(state.error.toString()),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    },
+                  BlocBuilder<SignupBloc, SignupState>(
                     builder: (context, state) {
                       if (state is SignupLoading) {
                         return const LoadingButton();
@@ -302,6 +292,15 @@ class _SingupScreenState extends State<SingupScreen> {
                             if (_formKey.currentState!.validate()) {
                               BlocProvider.of<SignupBloc>(context).add(
                                 SignupButtonPressed(
+                                  phone: _phoneNumberController.text.trim(),
+                                  name: _nameController.text.trim(),
+                                  email: _emailController.text.trim(),
+                                  password: _passwordController.text,
+                                  passwordConfirmation:
+                                      _passwordController.text,
+                                ),
+                              );
+                              /* SignupButtonPressed(
                                   name: _nameController.text,
                                   phone: _phoneNumberController.text,
                                   email: _emailController.text,
@@ -309,7 +308,7 @@ class _SingupScreenState extends State<SingupScreen> {
                                   passwordConfirmation:
                                       _passwordController.text,
                                 ),
-                              );
+                              ); */
                               /* Navigator.of(context).pushNamed(
                                 "/otp",
                                 arguments: {

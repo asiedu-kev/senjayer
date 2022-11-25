@@ -26,7 +26,7 @@ enum Errors{
         return "Un compte avec ce numéro de téléphone existe déjà";
 
       case Errors.emailAlreadyInUse:
-        return "Un compte avec ce mail de téléphone existe déjà";
+        return "Un compte avec cette adresse mail existe déjà";
 
       default:
       return "Erreur inattendue";

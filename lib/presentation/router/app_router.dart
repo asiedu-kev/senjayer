@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/auth_bloc/auth.dart';
+import 'package:senjayer/business_logic/bloc/login_bloc/login.dart';
 import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.dart'
     as obd;
@@ -81,30 +82,35 @@ class AppRouter {
           ),
         );
 
-      /* case '/login':
+      case '/login':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => LoginBloc(authenticationBloc: authRepository, authRepository: null,),
-                  child: LoginScreen(),
-                )); */
+          builder: (_) => BlocProvider(
+            create: (context) => LoginBloc(
+              authRepository: authRepository,
+              authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+            ),
+            child: const LoginScreen(),
+          ),
+        );
 
       case '/signup':
         return MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                      create: (context) => PasswordCubit(),
-                    ),
-                    BlocProvider(
-                      create: (context) => SignupBloc(
-                        authenticationBloc:
-                            BlocProvider.of<AuthenticationBloc>(context),
-                        authRepository: authRepository,
-                      ),
-                    ),
-                  ],
-                  child: const SignupProcess(),
-                ),);
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => PasswordCubit(),
+              ),
+              BlocProvider(
+                create: (context) => SignupBloc(
+                  authenticationBloc:
+                      BlocProvider.of<AuthenticationBloc>(context),
+                  authRepository: authRepository,
+                ),
+              ),
+            ],
+            child: const SignupProcess(),
+          ),
+        );
 
       case '/otp':
         final arguments = settings.arguments as Map<String, dynamic>;

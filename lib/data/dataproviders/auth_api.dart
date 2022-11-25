@@ -41,4 +41,5 @@ class AuthAPI {
     Response response = await _dio.get(rolesUrl);
     return response;
   }
+
 }
