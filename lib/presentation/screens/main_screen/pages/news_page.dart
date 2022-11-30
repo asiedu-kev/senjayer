@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senjayer/business_logic/cubit/topic_cubit.dart';
+import 'package:senjayer/business_logic/cubit/topic/topic_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/news_card.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/topic_item.dart';

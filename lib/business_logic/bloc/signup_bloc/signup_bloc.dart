@@ -20,11 +20,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupButtonPressed>(
       (event, emit) async {
         log("SignupButtonPressed");
-        emit(SignupLoading());
+        if (event.forceResendingToken == null) {
+          emit(SignupLoading());
+        }else{
+          emit(VerificationLoading());
+        }
         final fb.FirebaseAuth firebaseAuth = fb.FirebaseAuth.instance;
         firebaseAuth.verifyPhoneNumber(
           phoneNumber: "+229${event.phone}",
-          timeout: const Duration(seconds: 60),
+          timeout: const Duration(seconds: 120),
           forceResendingToken: event.forceResendingToken,
           verificationCompleted: (fb.PhoneAuthCredential credential) async {
             log('verificationCompleted');
@@ -47,6 +51,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
                 name: event.name,
                 phone: event.phone,
                 email: event.email,
+                forceResendingToken: resendToken,
                 password: event.password,
                 passwordConfirmation: event.passwordConfirmation));
           },
@@ -74,13 +79,17 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<VerificationCodeSend>(
       (event, emit) {
         log("VerificationCodeSend");
-        emit(SignUpOtpVerification(
+        emit(
+          SignUpOtpVerification(
             verificationId: event.verificationId,
             email: event.email,
             name: event.name,
             password: event.password,
             passwordConfirmation: event.passwordConfirmation,
-            phone: event.phone));
+            phone: event.phone,
+            forceResendingToken: event.forceResendingToken,
+          ),
+        );
       },
     );
 
@@ -134,6 +143,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<ValidationButtonPressed>(
       (event, emit) async {
         log("ValidationButtonPressed");
+        emit(VerificationLoading());
         final fb.FirebaseAuth firebaseAuth = fb.FirebaseAuth.instance;
         try {
           fb.PhoneAuthCredential credential = fb.PhoneAuthProvider.credential(
@@ -151,12 +161,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           log(e.message.toString());
           emit(WrongOTP(error: handleFirebaseError(e)));
           emit(SignUpOtpVerification(
-            verificationId: event.verificationId,
-            email: event.email,
-            name: event.name,
-            password: event.password,
-            passwordConfirmation: event.passwordConfirmation,
-            phone: event.phone));
+              verificationId: event.verificationId,
+              email: event.email,
+              name: event.name,
+              password: event.password,
+              passwordConfirmation: event.passwordConfirmation,
+              phone: event.phone));
         } catch (e) {
           emit(
             const SignupFailure(

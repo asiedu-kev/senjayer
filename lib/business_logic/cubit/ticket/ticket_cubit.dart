@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:senjayer/data/models/pricing.dart';
+import 'package:senjayer/data/models/ticket.dart';
 
 part 'ticket_state.dart';
 
@@ -8,23 +8,23 @@ class TicketCubit extends Cubit<TicketState> {
       : super(
           TicketState(
             itemCount: 1,
-            pricing: demoPricing[0],
+            ticket: demoTickets[0],
           ),
         );
 
   void reset() {
     emit(
       TicketState(
-        pricing: demoPricing[0],
+        ticket: demoTickets[0],
         itemCount: 1,
       ),
     );
   }
 
-  void setPricing(Pricing pricing) {
+  void setticket(Ticket ticket) {
     emit(
       TicketState(
-        pricing: pricing,
+        ticket: ticket,
         itemCount: 1,
       ),
     );
@@ -32,17 +32,17 @@ class TicketCubit extends Cubit<TicketState> {
 
   void incrementTickets() {
     emit(
-      TicketState(pricing: state.pricing, itemCount: state.itemCount + 1),
+      TicketState(ticket: state.ticket, itemCount: state.itemCount + 1),
     );
   }
 
   void decrementTickets() {
     emit(
-      TicketState(pricing: state.pricing, itemCount: state.itemCount > 1 ? state.itemCount - 1 : 1),
+      TicketState(ticket: state.ticket, itemCount: state.itemCount > 1 ? state.itemCount - 1 : 1),
     );
   }
 
   int getTotalAmount(){
-    return state.itemCount * state.pricing.price;
+    return state.itemCount * state.ticket.price;
   }
 }

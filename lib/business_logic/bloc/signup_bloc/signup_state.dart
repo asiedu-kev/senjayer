@@ -6,7 +6,9 @@ class SignupInitial extends SignupState {}
 
 class SignupLoading extends SignupState {}
 
-class SignupCompleted extends SignupState{}
+class SignupCompleted extends SignupState {}
+
+class VerificationLoading extends SignupState{}
 
 class SignUpOtpVerification extends SignupState {
   final String verificationId;
@@ -15,8 +17,10 @@ class SignUpOtpVerification extends SignupState {
   final String email;
   final String password;
   final String passwordConfirmation;
+  final int? forceResendingToken;
 
   SignUpOtpVerification({
+    this.forceResendingToken,
     required this.verificationId,
     required this.email,
     required this.name,

@@ -45,13 +45,19 @@ class EventListWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 32.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: eventList.events.length,
-            itemBuilder: (context, index) => EventDetailCard(
-              event: eventList.events[index],
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+          
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: eventList.events.length,
+              itemBuilder: (context, index) => Align(
+                child: EventDetailCard(
+                  event: eventList.events[index],
+                ),
+              ),
             ),
           ),
         ),

@@ -33,7 +33,7 @@ class SignupProcess extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is SignUpOtpVerification || state is WrongOTP)  {
+        if (state is SignUpOtpVerification || state is WrongOTP || state is VerificationLoading)  {
           return const OTPScreen(
             title: "Inscription",
             otpMethod: OTPMethod.sms,

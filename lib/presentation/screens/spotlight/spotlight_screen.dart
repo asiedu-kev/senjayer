@@ -5,8 +5,10 @@ import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:sizer/sizer.dart';
 
 class SpotlightScreen extends StatelessWidget {
+  final List<Event> topEvents;
   const SpotlightScreen({
     Key? key,
+    required this.topEvents,
   }) : super(key: key);
 
   @override
@@ -21,14 +23,13 @@ class SpotlightScreen extends StatelessWidget {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
-              children: [
-                ...List<Widget>.generate(
-                  9,
-                  (index) => SpotlightEventCard(
-                    event: demoSpotlightEvents[index % 3],
-                  ),
-                ),
-              ],
+              children: topEvents
+                  .map(
+                    (topEvent) => SpotlightEventCard(
+                      event: topEvent,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ),

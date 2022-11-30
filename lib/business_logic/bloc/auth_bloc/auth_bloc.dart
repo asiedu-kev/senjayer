@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/data/repositories/local_data_repository.dart';
@@ -11,10 +12,18 @@ class AuthenticationBloc
       : super(AuthenticationUninitialized()) {
     on<AppStarted>(
       (event, emit) async {
-        final bool hasToken = await localDataRepository.hasToken();
-        if (hasToken) {
-          emit(AuthenticationAuthenticated());
+        final bool rememberUser = await localDataRepository.rememberUser();
+        if (rememberUser) {
+          final bool hasToken = await localDataRepository.hasToken();
+          if (hasToken) {
+            final String token = await localDataRepository.getToken();
+            log(token);
+            emit(AuthenticationAuthenticated());
+          } else {
+            emit(AuthenticationUnauthenticated());
+          }
         } else {
+          localDataRepository.deleteToken();
           emit(AuthenticationUnauthenticated());
         }
       },
@@ -30,6 +39,7 @@ class AuthenticationBloc
       (event, emit) async {
         emit(AuthenticationLoading());
         await localDataRepository.deleteToken();
+        await localDataRepository.clearRememberMe();
         emit(AuthenticationUnauthenticated());
       },
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senjayer/business_logic/cubit/ticket_cubit.dart';
-import 'package:senjayer/data/models/pricing.dart';
+import 'package:senjayer/business_logic/cubit/ticket/ticket_cubit.dart';
+import 'package:senjayer/data/models/ticket.dart';
 import 'package:senjayer/presentation/screens/buy_ticket/widgets/ticket_information_card.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
@@ -59,16 +59,16 @@ class BuyTicketScreen extends StatelessWidget {
                   ),
                   child: BlocBuilder<TicketCubit, TicketState>(
                     builder: (context, state) {
-                      return DropdownButton<Pricing>(
+                      return DropdownButton<Ticket>(
                         underline: const SizedBox(),
                         dropdownColor: AppConstants().lightPurple,
-                        value: state.pricing,
+                        value: state.ticket,
                         isExpanded: true,
-                        items: demoPricing.map((Pricing pricing) {
-                          return DropdownMenuItem<Pricing>(
-                            value: pricing,
+                        items: demoTickets.map((Ticket ticket) {
+                          return DropdownMenuItem<Ticket>(
+                            value: ticket,
                             child: Text(
-                              "${pricing.label} (${pricing.price} F CFA)",
+                              "${ticket.name} (${ticket.price} F CFA)",
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 color: Colors.black,
@@ -76,10 +76,10 @@ class BuyTicketScreen extends StatelessWidget {
                             ),
                           );
                         }).toList(),
-                        onChanged: (pricing) {
-                          if (pricing != null) {
+                        onChanged: (ticket) {
+                          if (ticket != null) {
                             BlocProvider.of<TicketCubit>(context)
-                                .setPricing(pricing);
+                                .setticket(ticket);
                           }
                         },
                       );

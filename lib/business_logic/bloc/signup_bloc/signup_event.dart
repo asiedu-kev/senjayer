@@ -30,14 +30,17 @@ class VerificationCodeSend extends SignupEvent {
   final String email;
   final String password;
   final String passwordConfirmation;
+  final int? forceResendingToken;
 
-  VerificationCodeSend(
-      {required this.verificationId,
-      required this.name,
-      required this.phone,
-      required this.email,
-      required this.password,
-      required this.passwordConfirmation});
+  VerificationCodeSend({
+    required this.verificationId,
+    required this.name,
+    required this.phone,
+    required this.email,
+    required this.password,
+    required this.passwordConfirmation,
+    this.forceResendingToken,
+  });
 }
 
 class SignupButtonPressed extends SignupEvent {

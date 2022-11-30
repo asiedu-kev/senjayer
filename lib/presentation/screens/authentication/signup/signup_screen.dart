@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/signup_bloc/signup.dart';
-import 'package:senjayer/business_logic/cubit/password_cubit.dart';
+import 'package:senjayer/business_logic/cubit/password/password_cubit.dart';
 import 'package:senjayer/data/models/auth_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
 import 'package:senjayer/presentation/widgets/loading_button.dart';
