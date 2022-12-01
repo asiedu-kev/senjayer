@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:senjayer/business_logic/bloc/auth_bloc/auth.dart';
 import 'package:senjayer/data/models/user.dart';
 import 'package:senjayer/data/repositories/auth_repository.dart';
+import 'package:senjayer/data/repositories/local_data_repository.dart';
 import 'login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -30,6 +32,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             throw error;
           },
           (responseData) {
+            LocalDataRepository().setRememberMe(event.rememberMe);
             authenticationBloc.add(
               LoggedIn(
                 token: responseData["access_token"],

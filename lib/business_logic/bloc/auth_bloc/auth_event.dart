@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 import 'package:senjayer/data/models/user.dart';
 
 abstract class AuthenticationEvent {

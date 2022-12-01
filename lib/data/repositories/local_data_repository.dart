@@ -1,10 +1,23 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalDataRepository{
-  
+class LocalDataRepository {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<bool> hasToken() async {
+  Future<void> setRememberMe(bool rememberMe) async {
+    final prefs = await _prefs;
+    prefs.setBool('rememberMe', rememberMe);
+  }
+
+  Future<bool> rememberUser() async {
+    final prefs = await _prefs;
+    return prefs.getBool('rememberMe') ?? false;
+  }
+
+  Future<void> clearRememberMe() async {
+    final prefs = await _prefs;
+    prefs.remove('rememberMe');
+  }
+    Future<bool> hasToken() async {
     final prefs = await _prefs;
     var value = prefs.getString('token');
     if (value != null) {
@@ -12,6 +25,10 @@ class LocalDataRepository{
     } else {
       return false;
     }
+  }
+  Future<String> getToken() async {
+    final prefs = await _prefs;
+    return prefs.getString('token')!;
   }
 
   Future<void> persistToken(String token) async {
@@ -31,7 +48,7 @@ class LocalDataRepository{
 
   Future<bool> getHasSeenOnboarding() async {
     final prefs = await _prefs;
-    final hasSeenOnboarding =  prefs.getBool('hasSeenOnboarding');
-    return hasSeenOnboarding?? false;
+    final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding');
+    return hasSeenOnboarding ?? false;
   }
 }

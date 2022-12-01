@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/auth_bloc/auth.dart';
+import 'package:senjayer/business_logic/bloc/login_bloc/login.dart';
 import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.dart'
     as obd;
 import 'package:senjayer/business_logic/bloc/signup_bloc/signup.dart';
-import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
-import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
-import 'package:senjayer/business_logic/cubit/password_cubit.dart';
-import 'package:senjayer/business_logic/cubit/payment_method_cubit.dart';
-import 'package:senjayer/business_logic/cubit/ticket_cubit.dart';
+import 'package:senjayer/business_logic/cubit/event_detail/event_detail_cubit.dart';
+import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
+import 'package:senjayer/business_logic/cubit/onboarding/onboarding_cubit.dart';
+import 'package:senjayer/business_logic/cubit/password/password_cubit.dart';
+import 'package:senjayer/business_logic/cubit/payment_method/payment_method_cubit.dart';
+import 'package:senjayer/business_logic/cubit/ticket/ticket_cubit.dart';
+import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/data/repositories/auth_repository.dart';
 import 'package:senjayer/data/repositories/local_data_repository.dart';
@@ -81,30 +84,35 @@ class AppRouter {
           ),
         );
 
-      /* case '/login':
+      case '/login':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => LoginBloc(authenticationBloc: authRepository, authRepository: null,),
-                  child: LoginScreen(),
-                )); */
+          builder: (_) => BlocProvider(
+            create: (context) => LoginBloc(
+              authRepository: authRepository,
+              authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+            ),
+            child: const LoginScreen(),
+          ),
+        );
 
       case '/signup':
         return MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                      create: (context) => PasswordCubit(),
-                    ),
-                    BlocProvider(
-                      create: (context) => SignupBloc(
-                        authenticationBloc:
-                            BlocProvider.of<AuthenticationBloc>(context),
-                        authRepository: authRepository,
-                      ),
-                    ),
-                  ],
-                  child: const SignupProcess(),
-                ),);
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => PasswordCubit(),
+              ),
+              BlocProvider(
+                create: (context) => SignupBloc(
+                  authenticationBloc:
+                      BlocProvider.of<AuthenticationBloc>(context),
+                  authRepository: authRepository,
+                ),
+              ),
+            ],
+            child: const SignupProcess(),
+          ),
+        );
 
       case '/otp':
         final arguments = settings.arguments as Map<String, dynamic>;
@@ -139,7 +147,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const FavoriteScreen());
 
       case '/spotlight':
-        return MaterialPageRoute(builder: (_) => const SpotlightScreen());
+        final argument = settings.arguments as List<Event>;
+        return MaterialPageRoute(
+          builder: (_) => SpotlightScreen(
+            topEvents: argument,
+          ),
+        );
 
       case '/eventList':
         final argument = settings.arguments as EventList;
@@ -150,7 +163,19 @@ class AppRouter {
         );
 
       case '/eventDetail':
-        return MaterialPageRoute(builder: (_) => const EventDetailScreen());
+        final event = settings.arguments as Event;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => EventDetailCubit()
+              ..getEventDetails(
+                categoryId: event.categoryId,
+                userId: event.userId,
+              ),
+            child: EventDetailScreen(
+              event: event,
+            ),
+          ),
+        );
 
       case '/organizerDetail':
         return MaterialPageRoute(builder: (_) => const OrganizerDetailScreen());

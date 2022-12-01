@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/auth_bloc/auth.dart';
+import 'package:senjayer/business_logic/bloc/category_bloc/categories_bloc.dart';
 import 'package:senjayer/business_logic/bloc/login_bloc/login.dart';
-import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
+import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
 import 'package:senjayer/data/repositories/auth_repository.dart';
 import 'package:senjayer/presentation/screens/authentication/login/login_screen.dart';
 import 'package:senjayer/presentation/screens/main_screen/main_screen.dart';
@@ -16,8 +17,15 @@ class StartScreen extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
         if (state is AuthenticationAuthenticated) {
-          return BlocProvider(
-            create: (context) => MainScreenCubit(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => MainScreenCubit(),
+              ),
+              BlocProvider(
+                create: (context) => CategoriesBloc(),
+              ),
+            ],
             child: const MainScreen(),
           );
         }

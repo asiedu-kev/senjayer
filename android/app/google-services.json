@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "874067164403",
+    "project_id": "senjayer-87259",
+    "storage_bucket": "senjayer-87259.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874067164403:android:0da9f2d261b0c8e5f90b86",
+        "android_client_info": {
+          "package_name": "com.senjayer.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874067164403-6v529k1rndbkk1pm5s8k5juf0povk7a3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.senjayer.app",
+            "certificate_hash": "dec84b22c1292560a184f24dfd65a21f093ba502"
+          }
+        },
+        {
+          "client_id": "874067164403-4flksisgkvp9veoduotrstjc49aevvek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiLnIgVwXCGKQVkQvPG5BizYPh8vqEqpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874067164403-4flksisgkvp9veoduotrstjc49aevvek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

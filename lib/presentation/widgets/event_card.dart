@@ -19,6 +19,7 @@ class EventDetailCard extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context).pushNamed(
         "/eventDetail",
+        arguments: event,
       ),
       child: Padding(
         padding: EdgeInsets.only(left: 2.w),
@@ -43,8 +44,8 @@ class EventDetailCard extends StatelessWidget {
                         topRight: Radius.circular(20),
                       ),
                       image: DecorationImage(
-                        image: AssetImage(event.imagePath),
-                        fit: BoxFit.fill,
+                        image: NetworkImage(event.imageUrl),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -63,7 +64,7 @@ class EventDetailCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          event.title,
+                          event.name,
                           style: TextStyle(
                             fontSize: 13.5.sp,
                             fontWeight: FontWeight.bold,
@@ -74,14 +75,14 @@ class EventDetailCard extends StatelessWidget {
                         ),
                         EventDetailItem(
                           icon: Icons.event,
-                          data: formatDate(event.date),
+                          data: formatDate(event.startDate),
                         ),
                         SizedBox(
                           height: 0.7.h,
                         ),
                         EventDetailItem(
                           icon: Icons.local_activity,
-                          data: event.price.toString(),
+                          data: event.getMinTicketPrice().toString(),
                         ),
                         SizedBox(
                           height: 0.7.h,
@@ -91,7 +92,7 @@ class EventDetailCard extends StatelessWidget {
                           children: [
                             EventDetailItem(
                               icon: Icons.location_on,
-                              data: event.location,
+                              data: event.eventAddress,
                             ),
                             Icon(
                               Icons.bookmark_border,

@@ -213,6 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 LoginButtonPressed(
                                   phone: _phoneController.text,
                                   password: _passwordController.text,
+                                  rememberMe: rememberMe,
                                 ),
                               );
                             }

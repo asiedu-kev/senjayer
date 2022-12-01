@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senjayer/business_logic/cubit/category_cubit.dart';
-import 'package:senjayer/business_logic/cubit/search_cubit.dart';
+import 'package:senjayer/business_logic/bloc/category_bloc/categories_bloc.dart';
+import 'package:senjayer/business_logic/cubit/category/category_cubit.dart';
+import 'package:senjayer/business_logic/cubit/day_events/day_events_cubit.dart';
+import 'package:senjayer/business_logic/cubit/search/search_cubit.dart';
+import 'package:senjayer/business_logic/cubit/top_events/top_events_cubit.dart';
+import 'package:senjayer/business_logic/cubit/trend/trend_cubit.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/category_item.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/category_item_loading_widget.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/event_list_loading_widget.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/event_list_widget.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/no_result_widget.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/top_events_loading_widget.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/top_events_slider.dart';
 import 'package:senjayer/presentation/widgets/event_list_item_card.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -91,9 +99,6 @@ class _HomePageState extends State<HomePage> {
                             validator: (value) {
                               if (value == null) {
                                 return "Erreur";
-                              }
-                              if (value.isEmpty) {
-                                return "Numéro invalide";
                               }
                               return null;
                             },
@@ -186,8 +191,8 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 5.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5.w),
                                     child: Text(
                                       "A la une",
                                       style: TextStyle(
@@ -196,11 +201,22 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 5.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5.w),
                                     child: TextButton(
-                                      onPressed: () => Navigator.of(context)
-                                          .pushNamed("/spotlight"),
+                                      onPressed: () {
+                                        if (BlocProvider.of<TopEventsCubit>(
+                                                context)
+                                            .state is TopFetched) {
+                                          Navigator.of(context).pushNamed(
+                                            "/spotlight",
+                                            arguments: (BlocProvider.of<
+                                                        TopEventsCubit>(context)
+                                                    .state as TopFetched)
+                                                .topEvents,
+                                          );
+                                        }
+                                      },
                                       child: Text(
                                         "voir plus",
                                         style: TextStyle(
@@ -214,21 +230,51 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               SizedBox(height: 1.h),
-                              Container(
-                                height: 18.3.h,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 5.w),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    20,
-                                  ),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/vano_large.png"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
+                              BlocBuilder<TopEventsCubit, TopEventsState>(
+                                builder: (context, state) {
+                                  if (state is TopFetched) {
+                                    return SizedBox(
+                                      height: 18.4.h,
+                                      width: MediaQuery.of(context).size.width,
+                                      child: TopEventsSlider(
+                                        topEvents: state.topEvents,
+                                      ),
+                                    );
+                                  } else if (state is TopFetchingFailed) {
+                                    return Container(
+                                      height: 18.3.h,
+                                      padding: EdgeInsets.all(5.w),
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5.w),
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.error_outline,
+                                            color: AppConstants().purple,
+                                            size: 12.sp,
+                                          ),
+                                          Text(
+                                            'Erreur lors du chargement des données',
+                                            style: TextStyle(
+                                              fontSize: 11.5.sp,
+                                              color: AppConstants().purple,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return const TopEventsLoadingWidget();
+                                  }
+                                },
                               ),
                               SizedBox(
                                 height: 2.h,
@@ -238,19 +284,30 @@ class _HomePageState extends State<HomePage> {
                                 child:
                                     BlocBuilder<CategoryCubit, CategoryState>(
                                   builder: (context, state) {
+                                    if (state is CategoryFetched) {
+                                      return ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        physics: const BouncingScrollPhysics(),
+                                        itemBuilder: (context, index) =>
+                                            CategoryItem(
+                                          isSelected:
+                                              index == state.currentIndex,
+                                          label: state.categories[index].name,
+                                          onTap: () {
+                                            BlocProvider.of<CategoryCubit>(
+                                                    context)
+                                                .setCategoryIndex(index);
+                                          },
+                                        ),
+                                        itemCount: state.categories.length,
+                                      );
+                                    }
                                     return ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       physics: const BouncingScrollPhysics(),
                                       itemBuilder: (context, index) =>
-                                          CategoryItem(
-                                        isSelected: index == state.currentIndex,
-                                        label: state.categories[index],
-                                        onTap: () =>
-                                            BlocProvider.of<CategoryCubit>(
-                                                    context)
-                                                .setCategoryIndex(index),
-                                      ),
-                                      itemCount: state.categories.length,
+                                          const CategoryItemLoadingWidget(),
+                                      itemCount: 4,
                                     );
                                   },
                                 ),
@@ -258,18 +315,86 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: 2.h,
                               ),
-                              ListView.separated(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: demoLists.length,
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(
-                                  height: 1.h,
-                                ),
-                                itemBuilder: (context, index) =>
-                                    EventListWidget(
-                                  eventList: demoLists[index],
-                                ),
+                              BlocBuilder<CategoryCubit, CategoryState>(
+                                builder: (context, state) {
+                                  if(state is CategoryFetched){
+                                    if(state.currentIndex == 0){
+                                      return ListView.separated(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: 2,
+                                    separatorBuilder: (context, index) =>
+                                        SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      if (index == 0) {
+                                        return BlocBuilder<TrendCubit,
+                                            TrendState>(
+                                          builder: (context, state) {
+                                            if (state is TrendFetched) {
+                                              return EventListWidget(
+                                                eventList: EventList(
+                                                  listTitle: "Tendance",
+                                                  events: state.trendEvents,
+                                                ),
+                                              );
+                                            } else {
+                                              return const EventListLoadingWidget();
+                                            }
+                                          },
+                                        );
+                                      } else {
+                                        return BlocBuilder<DayEventsCubit,
+                                            DayEventsState>(
+                                          builder: (context, state) {
+                                            if (state is DayEventsFetched) {
+                                              return EventListWidget(
+                                                eventList: EventList(
+                                                  listTitle: "Aujourd'hui",
+                                                  events: state.dayEvents,
+                                                ),
+                                              );
+                                            } else if (state
+                                                is DayEventsIsEmpty) {
+                                              return const SizedBox();
+                                            } else {
+                                              return const EventListLoadingWidget();
+                                            }
+                                          },
+                                        );
+                                      }
+                                    },
+                                  );
+                                    }else{
+                                      return BlocBuilder<CategoriesBloc,
+                                            CategoriesState>(
+                                          builder: (context, state) {
+                                            if (state is CategoriesEventsFetched) {
+                                              return EventListWidget(
+                                                eventList: EventList(
+                                                  listTitle: (BlocProvider.of<CategoryCubit>(context).state as CategoryFetched).categories[(BlocProvider.of<CategoryCubit>(context).state as CategoryFetched).currentIndex].name,
+                                                  events: state.categorieEvents,
+                                                ),
+                                              );
+                                            } else if (state
+                                                is CategoriesIsEmpty) {
+                                              return const SizedBox();
+                                            } else {
+                                              return const EventListLoadingWidget();
+                                            }
+                                          },
+                                        );
+                                    }
+                                  }else{
+                                    return const SizedBox();
+                                  }
+                                  
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.h,
                               ),
                             ],
                           ),

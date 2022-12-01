@@ -27,6 +27,8 @@ class EventDetailItem extends StatelessWidget {
         ),
         Text(
           data,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 9.sp,
           ),

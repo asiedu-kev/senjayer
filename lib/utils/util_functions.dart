@@ -2,6 +2,14 @@
     return "${formatNumber(date.day)} ${getMonth(date.month)} ${date.year}, ${formatNumber(date.hour)}:${formatNumber(date.minute)}";
   }
 
+String formatEventDate(DateTime date){
+    return "${formatNumber(date.day)} ${getMonth(date.month)} ${date.year}";
+  }
+
+String getHourFromDate(DateTime date){
+    return "${formatNumber(date.hour)}:${formatNumber(date.minute)}";
+  }
+
   String formatNumber(int number){
     return number > 9? "$number" : "0$number";
   }

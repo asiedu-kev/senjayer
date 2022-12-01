@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:senjayer/data/models/pricing.dart';
-import 'package:senjayer/presentation/screens/event_detail/widgets/pricing_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/cubit/event_detail/event_detail_cubit.dart';
+import 'package:senjayer/data/models/event.dart';
+import 'package:senjayer/presentation/screens/event_detail/widgets/ticket_item.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
+import 'package:senjayer/presentation/widgets/shimmer.dart';
+import 'package:senjayer/presentation/widgets/shimmer_loading.dart';
 import 'package:senjayer/utils/constants.dart';
+import 'package:senjayer/utils/util_functions.dart';
 import 'package:sizer/sizer.dart';
 
 class EventDetailScreen extends StatelessWidget {
-  const EventDetailScreen({Key? key}) : super(key: key);
+  final Event event;
+  const EventDetailScreen({
+    Key? key,
+    required this.event,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,41 +32,71 @@ class EventDetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 40.h,
-                child: Image.asset(
-                  "assets/images/vano_description.png",
-                  fit: BoxFit.fill,
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: 40.h,
+                  child: Image.network(
+                    event.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(
                 height: 2.h,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 3.w,
-                  vertical: 1.h,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppConstants().purple,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  "Concert",
-                  style: TextStyle(
-                    color: AppConstants().purple,
-                    fontSize: 7.sp,
-                    fontWeight: FontWeight.values[4],
-                  ),
-                ),
+              BlocBuilder<EventDetailCubit, EventDetailState>(
+                builder: (context, state) {
+                  if (state is EventDetailFetched) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 3.w,
+                        vertical: 1.h,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppConstants().purple,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        state.category.name,
+                        style: TextStyle(
+                          color: AppConstants().purple,
+                          fontSize: 7.sp,
+                          fontWeight: FontWeight.values[4],
+                        ),
+                      ),
+                    );
+                  } else if (state is EventDetailFetching) {
+                    return Shimmer(
+                      linearGradient: AppConstants().shimmerGradient,
+                      child: ShimmerLoading(
+                        isLoading: true,
+                        child: Container(
+                          height: 4.5.h,
+                          width: 15.w,
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 2.w,
+                          ),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
               ),
               SizedBox(
                 height: 2.h,
               ),
               Text(
-                "Concert Test App",
+                event.name,
                 style:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 18.5.sp),
               ),
@@ -94,14 +133,16 @@ class EventDetailScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "10 Avril 2022",
+                                    formatEventDate(
+                                      event.startDate,
+                                    ),
                                     style: TextStyle(
                                       fontSize: 11.5.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    "16:00 - 20:00",
+                                    "${getHourFromDate(event.startDate)} - ${getHourFromDate(event.endDate)}",
                                     style: TextStyle(
                                       fontSize: 11.5.sp,
                                     ),
@@ -110,7 +151,7 @@ class EventDetailScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                           SizedBox(
+                          SizedBox(
                             height: 1.h,
                           ),
                           GestureDetector(
@@ -219,24 +260,19 @@ class EventDetailScreen extends StatelessWidget {
                                   color: AppConstants().purple,
                                 ),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Stade ABCDEFG",
-                                    style: TextStyle(
-                                      fontSize: 11.5.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              SizedBox(
+                                width: 2.w,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  event.eventAddress,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 11.5.sp,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  Text(
-                                    "Cotonou, BENIN",
-                                    style: TextStyle(
-                                      fontSize: 11.5.sp,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
@@ -285,7 +321,7 @@ class EventDetailScreen extends StatelessWidget {
                 height: 2.h,
               ),
               Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam neque pulvinar urna lacinia. Eleifend mauris, sit sed augue proin placerat morbi. Posuere dolor accumsan faucibus sed lobortis donec gravida a, volutpat. Convallis elementum quam interdum amet, tincidunt neque ultricies. Porta non condimentum dictum et, nullam lorem ut scelerisque risus. Turpis erat rhoncus diam non congue sed.",
+                event.description,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: 9.sp,
@@ -294,53 +330,113 @@ class EventDetailScreen extends StatelessWidget {
               SizedBox(
                 height: 2.h,
               ),
-              GestureDetector(
-                onTap: () =>
-                    Navigator.of(context).pushNamed("/organizerDetail"),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 14.w,
-                      width: 14.w,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppConstants().purple,
-                        ),
-                        shape: BoxShape.circle,
-                        image: const DecorationImage(
-                          image: AssetImage("assets/images/empire.png"),
-                        ),
+              BlocBuilder<EventDetailCubit, EventDetailState>(
+                builder: (context, state) {
+                  if (state is EventDetailFetched) {
+                    return GestureDetector(
+                      onTap: () =>
+                          Navigator.of(context).pushNamed("/organizerDetail"),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 14.w,
+                            width: 14.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppConstants().purple,
+                              ),
+                              shape: BoxShape.circle,
+                              /* image: const DecorationImage(
+                                image: AssetImage("assets/images/empire.png"),
+                              ), */
+                              //TODO: Show userProfile if available
+                            ),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                state.actor.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 11.5.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "Organisateur",
+                                style: TextStyle(
+                                  fontSize: 11.5.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      width: 3.w,
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Groupe Empire",
-                          style: TextStyle(
-                            fontSize: 11.5.sp,
-                            fontWeight: FontWeight.bold,
+                    );
+                  } else if(state is EventDetailFetching){
+                    return Shimmer(
+                      linearGradient: AppConstants().shimmerGradient,
+                      child: ShimmerLoading(
+                        isLoading: true,
+                        child: Row(
+                        children: [
+                          Container(
+                            height: 14.w,
+                            width: 14.w,
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                              shape: BoxShape.circle,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "Organisateur",
-                          style: TextStyle(
-                            fontSize: 11.5.sp,
+                          SizedBox(
+                            width: 3.w,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 3.h,
+                                width: 15.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: 0.5.h,),
+                              Container(
+                                height: 3.h,
+                                width: 10.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      ),
+                    ); 
+                  }else{
+                    return const SizedBox();
+                  }
+                },
               ),
               SizedBox(
                 height: 2.h,
               ),
-              Text(
+              if(event.tickets.isNotEmpty)Text(
                 "Pricing",
                 style: TextStyle(
                   fontSize: 11.5.sp,
@@ -350,10 +446,10 @@ class EventDetailScreen extends StatelessWidget {
               SizedBox(
                 height: 1.h,
               ),
-              ...demoPricing
+              ...event.tickets
                   .map(
-                    (pricing) => PricingItem(
-                      pricing: pricing,
+                    (ticket) => TicketItem(
+                      ticket: ticket,
                     ),
                   )
                   .toList(),

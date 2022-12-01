@@ -41,7 +41,7 @@ class EventListItemCard extends StatelessWidget {
                       bottomLeft: Radius.circular(20),
                     ),
                     image: DecorationImage(
-                      image: AssetImage(event.imagePath),
+                      image: AssetImage(event.imageUrl),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -77,7 +77,7 @@ class EventListItemCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              event.title,
+                              event.name,
                               style: TextStyle(
                                 fontSize: 13.5.sp,
                                 fontWeight: FontWeight.bold,
@@ -88,21 +88,21 @@ class EventListItemCard extends StatelessWidget {
                             ),
                             EventDetailItem(
                               icon: Icons.event,
-                              data: formatDate(event.date),
+                              data: formatDate(event.startDate),
                             ),
                             const SizedBox(
                               height: 7,
                             ),
                             EventDetailItem(
                               icon: Icons.local_activity,
-                              data: "${event.price.toString()} FCFA",
+                              data: "${event.getMinTicketPrice().toString()} FCFA",
                             ),
                             const SizedBox(
                               height: 7,
                             ),
                             EventDetailItem(
                               icon: Icons.location_on,
-                              data: event.location,
+                              data: event.eventAddress,
                             ),
                           ],
                         ),

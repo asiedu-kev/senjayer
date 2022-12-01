@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_bloc.dart';
 import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.dart';
-import 'package:senjayer/business_logic/cubit/onboarding_cubit.dart';
-import 'package:senjayer/data/repositories/auth_repository.dart';
-import 'package:senjayer/presentation/screens/authentication/widgets/auth_method_button.dart';
+import 'package:senjayer/business_logic/cubit/onboarding/onboarding_cubit.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
@@ -21,18 +19,19 @@ class OnBoardingScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                  flex: 5,
-                  child: BlocBuilder<OnBoardingCubit, OnBoardingState>(
-                    builder: (context, state) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: Image.asset(
-                          state.items[state.index].imagePath,
-                          fit: BoxFit.fill,
-                        ),
-                      );
-                    },
-                  )),
+                flex: 5,
+                child: BlocBuilder<OnBoardingCubit, OnBoardingState>(
+                  builder: (context, state) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Image.asset(
+                        state.items[state.index].imagePath,
+                        fit: BoxFit.fill,
+                      ),
+                    );
+                  },
+                ),
+              ),
               Expanded(
                 flex: 3,
                 child: Padding(
@@ -89,7 +88,7 @@ class OnBoardingScreen extends StatelessWidget {
                             onPressed: () {
                               BlocProvider.of<OnboardingBloc>(context)
                                   .add(SeenOnboarding());
-                              Navigator.of(context).pushNamed('/login');
+                              Navigator.of(context).pushNamed('/start');
                             },
                             child: Text(
                               "Passer",
@@ -109,18 +108,11 @@ class OnBoardingScreen extends StatelessWidget {
                               if (state.index == state.items.length - 1) {
                                 BlocProvider.of<OnboardingBloc>(context)
                                     .add(SeenOnboarding());
-                                Navigator.of(context).pushNamed('/login');
+                                Navigator.of(context).pushNamed('/start');
                               } else {
                                 BlocProvider.of<OnBoardingCubit>(context)
                                     .goToNextItem();
                               }
-                              /*  await AuthRepository().login(
-                                "DJIKPE Orphée",
-                                "66613755",
-                                "djikpeo@gmail.com",
-                                "MotDePasse",
-                                "MotDePasse",
-                              ); */
                             },
                             label: "Suivant",
                           ),

@@ -3,8 +3,10 @@ import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class PinEntryTextField extends StatefulWidget {
+  final Function(String code) onTypingCompleted;
   const PinEntryTextField({
     super.key,
+    required this.onTypingCompleted,
   });
 
   @override
@@ -23,10 +25,10 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
   @override
   void initState() {
     super.initState();
-    _pin = List<String?>.filled(4, null, growable: false);
-    _focusNodes = List<FocusNode?>.filled(4, null, growable: false);
+    _pin = List<String?>.filled(6, null, growable: false);
+    _focusNodes = List<FocusNode?>.filled(6, null, growable: false);
     _textControllers =
-        List<TextEditingController?>.filled(4, null, growable: false);
+        List<TextEditingController?>.filled(6, null, growable: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         textfields = generateTextFields(context);
@@ -43,7 +45,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
   }
 
   Widget generateTextFields(BuildContext context) {
-    List<Widget> textFields = List.generate(4, (int i) {
+    List<Widget> textFields = List.generate(6, (int i) {
       return buildTextField(i, context);
     });
 
@@ -78,11 +80,11 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
 
     return Container(
       alignment: Alignment.center,
-      height: 17.5.w,
-      width: 17.5.w,
+      height: 10.5.w,
+      width: 10.5.w,
       decoration: BoxDecoration(
         border: Border.all(color: AppConstants().purple),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(7),
       ),
       child: TextField(
         controller: _textControllers[i],
@@ -90,19 +92,26 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
         textAlign: TextAlign.center,
         maxLength: 1,
         style: TextStyle(
-          fontSize: 44.sp,
+          fontSize: 10.sp,
           color: Colors.black,
         ),
         focusNode: _focusNodes[i],
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 1.w),
           counterText: "",
+          fillColor: Colors.white,
           border: InputBorder.none,
+          errorBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          focusedErrorBorder: InputBorder.none,
         ),
         onChanged: (String str) {
           setState(() {
             _pin[i] = str;
           });
-          if (i + 1 != 4) {
+          if (i + 1 != 6) {
             _focusNodes[i]!.unfocus();
             if (_pin[i] == '') {
               FocusScope.of(context).requestFocus(_focusNodes[i - 1]);
@@ -116,10 +125,12 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
             }
           }
           if (_pin.every((String? digit) => digit != null && digit != '')) {
+            widget.onTypingCompleted(_pin.join());
           }
         },
         onSubmitted: (String str) {
           if (_pin.every((String? digit) => digit != null && digit != '')) {
+            widget.onTypingCompleted(_pin.join());
           }
         },
       ),

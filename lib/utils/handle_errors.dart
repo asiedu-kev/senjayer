@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../data/enums/errors.dart';
 
 Either<Errors, T> handleDioError<T>(DioError e) {
@@ -35,4 +36,16 @@ Either<Errors, T> handleDioError<T>(DioError e) {
     } */
   }
   return left(Errors.unexpected);
+}
+
+String handleFirebaseError(FirebaseException e) {
+  if(e.message.toString().contains("The format of the phone number provided is incorrect")){
+    return "Le format de votre numéro de téléphone est incorrect";
+  } else if(e.message.toString().contains("A network error")){
+    return "Erreur. Veuillez vérifiez votre connexion internet";
+  } else if(e.message.toString().contains("The sms verification code used to create the phone auth credential is invalid")){
+    return "Code de vérification incorrect. Veuillez réessayer.";
+  } else{
+    return "Erreur innatendue lors de la vérification de votre numéro de téléphone";
+  }
 }

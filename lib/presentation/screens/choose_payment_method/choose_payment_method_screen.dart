@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senjayer/business_logic/cubit/payment_method_cubit.dart';
+import 'package:senjayer/business_logic/cubit/payment_method/payment_method_cubit.dart';
 import 'package:senjayer/presentation/screens/choose_payment_method/widgets/pament_method_item.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';

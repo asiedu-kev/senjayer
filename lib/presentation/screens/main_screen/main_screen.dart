@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:senjayer/business_logic/cubit/category_cubit.dart';
-import 'package:senjayer/business_logic/cubit/main_screen_cubit.dart';
-import 'package:senjayer/business_logic/cubit/topic_cubit.dart';
-import 'package:senjayer/business_logic/cubit/room_category_cubit.dart';
-import 'package:senjayer/business_logic/cubit/search_cubit.dart';
+import 'package:senjayer/business_logic/bloc/category_bloc/categories_bloc.dart';
+import 'package:senjayer/business_logic/cubit/category/category_cubit.dart';
+import 'package:senjayer/business_logic/cubit/day_events/day_events_cubit.dart';
+import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
+import 'package:senjayer/business_logic/cubit/room_category/room_category_cubit.dart';
+import 'package:senjayer/business_logic/cubit/search/search_cubit.dart';
+import 'package:senjayer/business_logic/cubit/top_events/top_events_cubit.dart';
+import 'package:senjayer/business_logic/cubit/topic/topic_cubit.dart';
+import 'package:senjayer/business_logic/cubit/trend/trend_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/actor_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/home_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/location_page.dart';
@@ -77,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                   onTap: () => Navigator.of(context).pushNamed("/favorites"),
                 ),
                 SizedBox(
-                 width: 3.w,
+                  width: 3.w,
                 ),
                 GestureDetector(
                   onTap: () => Navigator.of(context).pushNamed("/profile"),
@@ -103,10 +107,23 @@ class _MainScreenState extends State<MainScreen> {
                 MultiBlocProvider(
                   providers: [
                     BlocProvider(
-                      create: (context) => CategoryCubit(),
+                      create: (context) => CategoryCubit(
+                          categoriesBloc:
+                              BlocProvider.of<CategoriesBloc>(context))
+                        ..fetchCategories(),
                     ),
                     BlocProvider(
                       create: (context) => SearchCubit(),
+                    ),
+                    BlocProvider(
+                      create: (context) => TopEventsCubit()..getTopEvents(),
+                    ),
+                    BlocProvider(
+                      create: (context) => TrendCubit()..getTrendEvents(),
+                    ),
+                    
+                    BlocProvider(
+                      create: (context) => DayEventsCubit()..getDayEvents(),
                     ),
                   ],
                   child: const HomePage(),
