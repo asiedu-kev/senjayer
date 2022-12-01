@@ -269,7 +269,7 @@ class _SingupScreenState extends State<SingupScreen> {
                             width: 2.w,
                           ),
                           Text(
-                            "Contenir un caractere ASCI et un chiffre",
+                            "Contenir un caractere Spécial et un chiffre",
                             style:
                                 Theme.of(context).textTheme.headline1!.copyWith(
                                       fontSize: 9.sp,
