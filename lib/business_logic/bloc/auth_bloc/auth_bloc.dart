@@ -32,6 +32,7 @@ class AuthenticationBloc
       (event, emit) async {
         emit(AuthenticationLoading());
         await localDataRepository.persistToken(event.token);
+        await localDataRepository.persistPhone(event.user.phone);
         emit(AuthenticationAuthenticated());
       },
     );
@@ -40,6 +41,7 @@ class AuthenticationBloc
         emit(AuthenticationLoading());
         await localDataRepository.deleteToken();
         await localDataRepository.clearRememberMe();
+        await localDataRepository.deletePhone();
         emit(AuthenticationUnauthenticated());
       },
     );

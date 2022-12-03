@@ -26,6 +26,7 @@ class LocalDataRepository {
       return false;
     }
   }
+
   Future<String> getToken() async {
     final prefs = await _prefs;
     return prefs.getString('token')!;
@@ -39,6 +40,21 @@ class LocalDataRepository {
   Future<void> deleteToken() async {
     final prefs = await _prefs;
     prefs.remove('token');
+  }
+
+  Future<String> getPhone() async {
+    final prefs = await _prefs;
+    return prefs.getString('phone')!;
+  }
+
+  Future<void> persistPhone(String phone) async {
+    final prefs = await _prefs;
+    prefs.setString('phone', phone);
+  }
+
+  Future<void> deletePhone() async {
+    final prefs = await _prefs;
+    prefs.remove('phone');
   }
 
   Future<void> setHasSeenOnboarding(bool value) async {

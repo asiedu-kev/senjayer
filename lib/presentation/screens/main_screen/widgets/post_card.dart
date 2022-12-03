@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:senjayer/data/models/post.dart';
+import 'package:senjayer/utils/util_functions.dart';
 import 'package:sizer/sizer.dart';
 
-class NewsCard extends StatelessWidget {
-  const NewsCard({
+class PostCard extends StatelessWidget {
+  final Post post;
+  const PostCard({
     Key? key,
+    required this.post,
   }) : super(key: key);
 
   @override
@@ -27,13 +31,13 @@ class NewsCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15),
                         bottomLeft: Radius.circular(15),
                       ),
                       image: DecorationImage(
-                        image: AssetImage("assets/images/Canal_olympia.png"),
+                        image: NetworkImage(post.imageUrl),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -58,7 +62,7 @@ class NewsCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Un canal Olympia pour tous les gouts ?",
+                            post.title,
                             style: TextStyle(
                               fontSize: 9.5.sp,
                               fontWeight: FontWeight.bold,
@@ -93,7 +97,11 @@ class NewsCard extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "23 Aout 2020",
+                                    post.updatedAt != null
+                                        ? formatEventDate(post.updatedAt!)
+                                        : post.createdAt != null
+                                            ? formatEventDate(post.createdAt!)
+                                            : "",
                                     style: TextStyle(
                                       fontSize: 5.sp,
                                       color: Colors.grey,

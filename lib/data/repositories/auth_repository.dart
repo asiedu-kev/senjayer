@@ -19,6 +19,7 @@ class AuthRepository {
       roles = (responseData["data"] as List<dynamic>)
           .map((element) => Role.fromMap(element))
           .toList();
+    return right(roles);
     } on DioError catch (error) {
       log('DioError ${error.message}');
       return handleDioError(error);
@@ -26,8 +27,6 @@ class AuthRepository {
       log(e.toString());
       return left(Errors.unexpected);
     }
-    log(roles.toString());
-    return right(roles);
   }
 
   Future<Either<Errors, Map<String, dynamic>>> register(

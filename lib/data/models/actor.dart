@@ -1,72 +1,82 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
+import 'package:senjayer/data/models/social_link.dart';
+
 class Actor {
   final int id;
-  final String name;
-  final String imageUrl;
+  final String fullName;
+  final String picture;
+  final int categoryId;
+  final String entitled;
   final String phone;
   final String email;
-  final bool isOrganizer;
+  final String type;
+  final String about;
+  final Map<String, SocialLink> socialLinks;
   Actor({
     required this.id,
-    required this.name,
-    required this.imageUrl,
+    required this.fullName,
+    required this.picture,
+    required this.categoryId,
+    required this.entitled,
     required this.phone,
     required this.email,
-    required this.isOrganizer,
+    required this.type,
+    required this.about,
+    required this.socialLinks,
   });
 
   Actor copyWith({
     int? id,
-    String? name,
-    String? imageUrl,
+    String? fullName,
+    String? picture,
+    int? categoryId,
+    String? entitled,
     String? phone,
     String? email,
-    bool? isOrganizer,
+    String? type,
+    String? about,
+    Map<String, SocialLink>? socialLinks,
   }) {
     return Actor(
       id: id ?? this.id,
-      name: name ?? this.name,
-      imageUrl: imageUrl ?? this.imageUrl,
+      fullName: fullName ?? this.fullName,
+      picture: picture ?? this.picture,
+      categoryId: categoryId ?? this.categoryId,
+      entitled: entitled ?? this.entitled,
       phone: phone ?? this.phone,
       email: email ?? this.email,
-      isOrganizer: isOrganizer ?? this.isOrganizer,
+      type: type ?? this.type,
+      about: about ?? this.about,
+      socialLinks: socialLinks ?? this.socialLinks,
     );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'imageUrl': imageUrl,
-      'phone': phone,
-      'email': email,
-      'isOrganizer': isOrganizer,
-    };
   }
 
   factory Actor.fromMap(Map<String, dynamic> map) {
     return Actor(
       id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
-      imageUrl: map['image_url'] ?? '',
+      fullName: map['full_name'] ?? '',
+      picture: map['picture'] ?? '',
+      categoryId: map['category_id']?.toInt() ?? 0,
+      entitled: map['entitled'] ?? '',
       phone: map['phone'] ?? '',
       email: map['email'] ?? '',
-      isOrganizer: map['role_id'] != null
-          ? map['role_id'] == 3
-              ? true
-              : false
-          : false,
+      type: map['type'] ?? '',
+      about: map['about'] ?? '',
+      socialLinks: map['social_links'] != null
+          ? (map['social_link'] as Map)
+              .map((key, value) => MapEntry(key, SocialLink.fromMap(value)))
+          : {},
     );
   }
-
-  String toJson() => json.encode(toMap());
 
   factory Actor.fromJson(String source) => Actor.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Actor(id: $id, name: $name, imageUrl: $imageUrl, phone: $phone, email: $email, isOrganizer: $isOrganizer)';
+    return 'Actor(id: $id, fullName: $fullName, picture: $picture, categoryId: $categoryId, entitled: $entitled, phone: $phone, email: $email, type: $type, about: $about, socialLinks: $socialLinks)';
   }
 
   @override
@@ -75,55 +85,79 @@ class Actor {
 
     return other is Actor &&
         other.id == id &&
-        other.name == name &&
-        other.imageUrl == imageUrl &&
+        other.fullName == fullName &&
+        other.picture == picture &&
+        other.categoryId == categoryId &&
+        other.entitled == entitled &&
         other.phone == phone &&
         other.email == email &&
-        other.isOrganizer == isOrganizer;
+        other.type == type &&
+        other.about == about &&
+        mapEquals(other.socialLinks, socialLinks);
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        name.hashCode ^
-        imageUrl.hashCode ^
+        fullName.hashCode ^
+        picture.hashCode ^
+        categoryId.hashCode ^
+        entitled.hashCode ^
         phone.hashCode ^
         email.hashCode ^
-        isOrganizer.hashCode;
+        type.hashCode ^
+        about.hashCode ^
+        socialLinks.hashCode;
   }
 }
 
 List<Actor> demoActors = [
   Actor(
-    name: "Togbè Yéton",
-    isOrganizer: false,
-    imageUrl: "assets/images/togbe_profile.png",
+    fullName: "Togbè Yéton",
+    type: 'false',
+    picture: "assets/images/togbe_profile.png",
     email: "",
     id: 0,
     phone: "",
+    about: "",
+    categoryId: 1,
+    entitled: "",
+    socialLinks: {'facevook': SocialLink(link: "link", icon: "con")},
   ),
   Actor(
-    name: "Vano Baby",
-    isOrganizer: false,
-    imageUrl: "assets/images/vano_profile.png",
+    fullName: "Vano Baby",
+    type: 'false',
+    picture: "assets/images/vano_profile.png",
     email: "",
     id: 1,
     phone: "",
+    about: "",
+    categoryId: 1,
+    entitled: "",
+    socialLinks: {'facevook': SocialLink(link: "link", icon: "con")},
   ),
   Actor(
-    name: "Groupe Empire",
-    isOrganizer: true,
-    imageUrl: "assets/images/empire.png",
+    fullName: "Groupe Empire",
+    type: 'true',
+    picture: "assets/images/empire.png",
     email: "",
     id: 2,
     phone: "",
+    about: "",
+    categoryId: 1,
+    entitled: "",
+    socialLinks: {'facevook': SocialLink(link: "link", icon: "con")},
   ),
   Actor(
-    name: "Beyonce & Jay Z",
-    isOrganizer: false,
-    imageUrl: "assets/images/amazon.png",
+    fullName: "Beyonce & Jay Z",
+    type: 'false',
+    picture: "assets/images/amazon.png",
     email: "",
     id: 3,
     phone: "",
+    about: "",
+    categoryId: 1,
+    entitled: "",
+    socialLinks: {'facevook': SocialLink(link: "link", icon: "con")},
   ),
 ];

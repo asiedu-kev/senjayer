@@ -5,6 +5,7 @@ enum Errors{
  incorrectphone,
  phoneAlreadyInUse,
  emailAlreadyInUse,
+ nameDoNotContainEnoughCaracters,
  unexpected;
 
  @override
@@ -27,6 +28,9 @@ enum Errors{
 
       case Errors.emailAlreadyInUse:
         return "Un compte avec cette adresse mail existe déjà";
+      
+      case Errors.nameDoNotContainEnoughCaracters:
+        return "Le champ 'Nom' doit contenir au moins 4 caractères";
 
       default:
       return "Erreur inattendue";

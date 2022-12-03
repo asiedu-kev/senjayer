@@ -7,11 +7,14 @@ import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.da
     as obd;
 import 'package:senjayer/business_logic/bloc/signup_bloc/signup.dart';
 import 'package:senjayer/business_logic/cubit/event_detail/event_detail_cubit.dart';
+import 'package:senjayer/business_logic/cubit/following/actors_followed_by_user_cubit.dart';
 import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
 import 'package:senjayer/business_logic/cubit/onboarding/onboarding_cubit.dart';
 import 'package:senjayer/business_logic/cubit/password/password_cubit.dart';
 import 'package:senjayer/business_logic/cubit/payment_method/payment_method_cubit.dart';
 import 'package:senjayer/business_logic/cubit/ticket/ticket_cubit.dart';
+import 'package:senjayer/business_logic/cubit/user/user_cubit.dart';
+import 'package:senjayer/business_logic/cubit/user_tickets/user_tickets_cubit.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/models/event_list.dart';
 import 'package:senjayer/data/repositories/auth_repository.dart';
@@ -207,7 +210,24 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const RoomDetailScreen());
 
       case '/profile':
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => UserCubit()..getUser(),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    ActorsFollowedByUserCubit()..getActorsFollowedByUser(),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    UserTicketsCubit()..getUserTickets(),
+              ),
+            ],
+            child: const ProfileScreen(),
+          ),
+        );
 
       case '/settings':
         return MaterialPageRoute(
