@@ -40,7 +40,7 @@ class ActorItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                actor.name,
+                actor.fullName,
                 style: TextStyle(
                   fontSize: 11.sp,
                   fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class ActorItem extends StatelessWidget {
             width: 27.w,
             child: RoundedButton(
               onPressed: () {
-                if(actor.isOrganizer){
+                if(actor.type.toLowerCase() == "organizer"){
                   Navigator.of(context).pushNamed('/organizerDetail');
                 }else{
                   Navigator.of(context).pushNamed('/actorDetail');

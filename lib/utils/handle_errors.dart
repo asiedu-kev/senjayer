@@ -29,23 +29,29 @@ Either<Errors, T> handleDioError<T>(DioError e) {
             "La valeur du champ phone est déjà utilisée.") {
           return left(Errors.phoneAlreadyInUse);
         }
+        if (e.response!.data['errors']['name'] != null) {
+          if (e.response!.data['errors']['name'][0] ==
+              "Le texte name doit contenir au moins 4 caractères.") {
+            return left(Errors.nameDoNotContainEnoughCaracters);
+          }
+        }
       }
     }
-    /* if(e.response!.data.toString().contains("Le champ de confirmation password ne correspond pas")){
-      return left(Errors.incompatiblePasswords);
-    } */
   }
   return left(Errors.unexpected);
 }
 
 String handleFirebaseError(FirebaseException e) {
-  if(e.message.toString().contains("The format of the phone number provided is incorrect")){
+  if (e.message
+      .toString()
+      .contains("The format of the phone number provided is incorrect")) {
     return "Le format de votre numéro de téléphone est incorrect";
-  } else if(e.message.toString().contains("A network error")){
+  } else if (e.message.toString().contains("A network error")) {
     return "Erreur. Veuillez vérifiez votre connexion internet";
-  } else if(e.message.toString().contains("The sms verification code used to create the phone auth credential is invalid")){
+  } else if (e.message.toString().contains(
+      "The sms verification code used to create the phone auth credential is invalid")) {
     return "Code de vérification incorrect. Veuillez réessayer.";
-  } else{
+  } else {
     return "Erreur innatendue lors de la vérification de votre numéro de téléphone";
   }
 }

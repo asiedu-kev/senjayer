@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 
 class AuthAPI {
@@ -37,7 +35,6 @@ class AuthAPI {
 
   Future<Response> getRoles() async {
     String rolesUrl = "$mainUrl/api/v1/list-roles";
-    log(rolesUrl);
     Response response = await _dio.get(rolesUrl);
     return response;
   }

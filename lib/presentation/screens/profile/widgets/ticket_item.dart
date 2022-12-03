@@ -1,13 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:senjayer/data/models/ticket.dart';
 import 'package:sizer/sizer.dart';
 
 class TicketItem extends StatelessWidget {
+  final Ticket ticket;
   const TicketItem({
     Key? key,
+    required this.ticket,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    log(ticket.qrUrl);
     return Container(
       height: 17.h,
       width: 25.w,
@@ -18,13 +24,13 @@ class TicketItem extends StatelessWidget {
           SizedBox(
             height: 25.w,
             width: 25.w,
-            child: Image.asset(
-              "assets/images/QRCode.png",
+            child: Image.network(
+              ticket.qrUrl,
               fit: BoxFit.fill,
             ),
           ),
           Text(
-            "Bobo show",
+            ticket.name,
             textAlign: TextAlign.left,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

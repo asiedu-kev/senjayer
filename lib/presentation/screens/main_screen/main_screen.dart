@@ -4,6 +4,7 @@ import 'package:senjayer/business_logic/bloc/category_bloc/categories_bloc.dart'
 import 'package:senjayer/business_logic/cubit/category/category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/day_events/day_events_cubit.dart';
 import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
+import 'package:senjayer/business_logic/cubit/post/post_cubit.dart';
 import 'package:senjayer/business_logic/cubit/room_category/room_category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/search/search_cubit.dart';
 import 'package:senjayer/business_logic/cubit/top_events/top_events_cubit.dart';
@@ -12,7 +13,7 @@ import 'package:senjayer/business_logic/cubit/trend/trend_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/actor_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/home_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/location_page.dart';
-import 'package:senjayer/presentation/screens/main_screen/pages/news_page.dart';
+import 'package:senjayer/presentation/screens/main_screen/pages/posts_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/bottom_nav_bar_item.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
 import 'package:sizer/sizer.dart';
@@ -121,16 +122,22 @@ class _MainScreenState extends State<MainScreen> {
                     BlocProvider(
                       create: (context) => TrendCubit()..getTrendEvents(),
                     ),
-                    
                     BlocProvider(
                       create: (context) => DayEventsCubit()..getDayEvents(),
                     ),
                   ],
                   child: const HomePage(),
                 ),
-                BlocProvider(
-                  create: (context) => TopicCubit(),
-                  child: const NewsPage(),
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => TopicCubit(),
+                    ),
+                    BlocProvider(
+                      create: (context) => PostCubit()..getPosts(),
+                    ),
+                  ],
+                  child: const PostsPage(),
                 ),
                 Container(
                   color: Colors.purple,

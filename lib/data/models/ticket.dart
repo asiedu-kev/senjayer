@@ -4,6 +4,7 @@ class Ticket {
   final int id;
   final String name;
   final String descrption;
+  final String qrUrl;
   final int quantity;
   final int price;
   final int eventId;
@@ -11,6 +12,7 @@ class Ticket {
     required this.id,
     required this.name,
     required this.descrption,
+    required this.qrUrl,
     required this.quantity,
     required this.price,
     required this.eventId,
@@ -21,6 +23,7 @@ class Ticket {
     int? id,
     String? name,
     String? descrption,
+    String? qrUrl,
     int? quantity,
     int? price,
     int? eventId,
@@ -29,6 +32,7 @@ class Ticket {
       id: id ?? this.id,
       name: name ?? this.name,
       descrption: descrption ?? this.descrption,
+      qrUrl: qrUrl?? this.qrUrl,
       quantity: quantity ?? this.quantity,
       price: price ?? this.price,
       eventId: eventId ?? this.eventId,
@@ -40,6 +44,7 @@ class Ticket {
       'id': id,
       'name': name,
       'descrption': descrption,
+      'qr_url': qrUrl,
       'quantity': quantity,
       'price': price,
       'eventId': eventId,
@@ -51,6 +56,7 @@ class Ticket {
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       descrption: map['descrption'] ?? '',
+      qrUrl: map['qr_url'] ?? '',
       quantity: map['quantity']?.toInt() ?? 0,
       price: map['price']?.toInt() ?? 0,
       eventId: map['event_id']?.toInt() ?? 0,
@@ -98,6 +104,7 @@ List<Ticket> demoTickets = [
     eventId: 1,
     id: 1,
     quantity: 100,
+    qrUrl: '',
   ),
   Ticket(
     name: "Gold",
@@ -106,6 +113,7 @@ List<Ticket> demoTickets = [
     eventId: 1,
     id: 3,
     quantity: 100,
+    qrUrl: '',
   ),
   Ticket(
     name: "Silver",
@@ -114,5 +122,6 @@ List<Ticket> demoTickets = [
     eventId: 1,
     id: 2,
     quantity: 100,
+    qrUrl: '',
   ),
 ];

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/cubit/post/post_cubit.dart';
 import 'package:senjayer/business_logic/cubit/topic/topic_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
-import 'package:senjayer/presentation/screens/main_screen/widgets/news_card.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/loading_post_card.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/no_post_widget.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/post_card.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/topic_item.dart';
+import 'package:senjayer/presentation/widgets/shimmer.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class NewsPage extends StatelessWidget {
-  const NewsPage({Key? key}) : super(key: key);
+class PostsPage extends StatelessWidget {
+  const PostsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +68,14 @@ class NewsPage extends StatelessWidget {
                       },
                     ),
                   ),
-                 SizedBox(
+                  SizedBox(
                     width: 3.w,
                   ),
                   HomeActionButton(
                     icon: Icons.filter_list_sharp,
                     onTap: () {},
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: 3.w,
                   ),
                 ],
@@ -95,7 +99,10 @@ class NewsPage extends StatelessWidget {
                       ...state.topics
                           .map(
                             (topic) => TopicItem(
-                              onTap: ()=> BlocProvider.of<TopicCubit>(context).setTopicIndex(state.topics.indexOf(topic),),
+                              onTap: () => BlocProvider.of<TopicCubit>(context)
+                                  .setTopicIndex(
+                                state.topics.indexOf(topic),
+                              ),
                               topic: topic,
                               isSelected: state.currentIndex ==
                                   state.topics.indexOf(topic),
@@ -111,12 +118,39 @@ class NewsPage extends StatelessWidget {
               height: 2.h,
             ),
             Expanded(
-                child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: List.generate(10, (index) => const NewsCard()),
+              child: BlocBuilder<PostCubit, PostState>(
+                builder: (context, state) {
+                  if (state is PostFetched) {
+                    return SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        children: List.generate(
+                          state.posts.length,
+                          (index) => PostCard(
+                            post: state.posts[index],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else if (state is PostIsEmpty) {
+                    return const NoPostWidget();
+                  } else {
+                    return SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Shimmer(
+                        linearGradient: AppConstants().shimmerGradient,
+                        child: Column(
+                          children: List.generate(
+                            10,
+                            (index) => const LoadingPostCard(),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
-            )),
+            ),
           ],
         ),
       ),
