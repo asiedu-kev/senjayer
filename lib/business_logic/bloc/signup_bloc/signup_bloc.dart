@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
@@ -27,7 +26,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         }
         final fb.FirebaseAuth firebaseAuth = fb.FirebaseAuth.instance;
         firebaseAuth.verifyPhoneNumber(
-          phoneNumber: "+229${event.phone}",
+          phoneNumber: event.phone,
           timeout: const Duration(seconds: 120),
           forceResendingToken: event.forceResendingToken,
           verificationCompleted: (fb.PhoneAuthCredential credential) async {
@@ -105,6 +104,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(
         SignupLoading(),
       );
+     /*  String phone = '';
+      if(event.phone.contains("+229")){
+        phone = event.phone.substring(4);
+      }else{
+        phone = event.phone;
+      } */
       try {
         final loginEither = await authRepository.register(
           event.name,

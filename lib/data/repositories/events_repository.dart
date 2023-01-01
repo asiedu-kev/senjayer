@@ -112,7 +112,7 @@ class EventsRepository {
     try {
       final response = await _eventAPI.getCategoryWithEvents();
       final responseData = jsonDecode(response.toString());
-      (responseData["data"] as List<dynamic>).forEach((element) {
+      for (var element in (responseData["data"] as List<dynamic>)) {
         if (element["id"] != null) {
           if (element["id"] == categoryId) {
             if (element['events'] != null) {
@@ -122,7 +122,7 @@ class EventsRepository {
             }
           }
         }
-      });
+      }
     } on DioError catch (error) {
       log('DioError ${error.message}');
       return handleDioError(error);
@@ -153,7 +153,8 @@ class EventsRepository {
       final response = await _eventAPI.getUserDetails(userId);
       final responseData = jsonDecode(response.toString());
       log(responseData["data"].toString());
-      return right(Actor.fromMap(responseData["data"]));
+      //TODO: Handle difference between user and actor
+      return right(Actor.fromUserMap(responseData["data"]));
     } on DioError catch (error) {
       log('DioError ${error.message}');
       return handleDioError(error);

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class RoomCategoryItem extends StatelessWidget {
+class HallCategoryItem extends StatelessWidget {
   final bool isSelected;
   final String label;
   final VoidCallback onTap;
-  const RoomCategoryItem({
+  const HallCategoryItem({
     Key? key,
     required this.isSelected,
     required this.label,

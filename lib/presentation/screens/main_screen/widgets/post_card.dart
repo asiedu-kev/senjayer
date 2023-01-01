@@ -32,7 +32,7 @@ class PostCard extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(15),
                         bottomLeft: Radius.circular(15),
                       ),

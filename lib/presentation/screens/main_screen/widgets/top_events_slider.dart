@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:sizer/sizer.dart';

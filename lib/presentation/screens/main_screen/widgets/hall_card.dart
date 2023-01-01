@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:senjayer/data/models/hall.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class RoomCard extends StatelessWidget {
-  const RoomCard({
+class HallCard extends StatelessWidget {
+  final Hall hall;
+  const HallCard({
     Key? key,
+    required this.hall,
   }) : super(key: key);
 
   @override
@@ -26,15 +29,13 @@ class RoomCard extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
                   image: DecorationImage(
-                    image: AssetImage(
-                      'assets/images/canal_mini.png',
-                    ),
+                    image: NetworkImage(hall.picture[0]),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -74,7 +75,7 @@ class RoomCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            "Canal Olympia - Wologuede",
+                            hall.title,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -108,7 +109,7 @@ class RoomCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            "Cotonou, Benin",
+                            "${hall.city}, ${hall.country}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

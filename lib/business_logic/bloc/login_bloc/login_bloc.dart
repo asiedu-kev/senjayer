@@ -1,8 +1,5 @@
-import 'dart:developer';
-
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:senjayer/business_logic/bloc/auth_bloc/auth.dart';
 import 'package:senjayer/data/models/user.dart';
 import 'package:senjayer/data/repositories/auth_repository.dart';
@@ -21,7 +18,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(
         LoginLoading(),
       );
-
       try {
         final loginEither = await authRepository.login(
           event.phone,

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/cubit/favorites/favorites_cubit.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/presentation/screens/favorites/widgets/no_favorite_widget.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/event_card.dart';
+import 'package:senjayer/presentation/widgets/loading_event_detail_card.dart';
+import 'package:senjayer/presentation/widgets/shimmer.dart';
+import 'package:senjayer/presentation/widgets/shimmer_loading.dart';
+import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -13,10 +19,12 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  late bool hasFavorite;
+  /* 
+  late bool hasFavorite; */
   @override
   void initState() {
-    hasFavorite = false;
+    /* 
+    hasFavorite = false; */
     super.initState();
     init();
   }
@@ -24,7 +32,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   init() async {
     await Future.delayed(const Duration(seconds: 5)).then(
       (value) => setState(() {
-        hasFavorite = true;
+        /* 
+        hasFavorite = true; */
       }),
     );
   }
@@ -46,9 +55,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         title: "Favoris",
         actionFunction: () {},
       ).build(context),
-      body: !hasFavorite
-          ? const NoFavoriteWidget()
-          : Padding(
+      body: BlocBuilder<FavoritesCubit, FavoritesState>(
+        builder: (context, state) {
+          if (state is FavoritesIsEmpty) {
+            return const NoFavoriteWidget();
+          } else if (state is FavoritesFetched) {
+            return Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 5.w,
               ),
@@ -67,7 +79,36 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   ),
                 ),
               ),
-            ),
+            );
+          } else {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.w,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List<Widget>.generate(
+                      9,
+                      (index) => Padding(
+                        padding: EdgeInsets.only(bottom: 2.h),
+                        child: Shimmer(
+                  linearGradient: AppConstants().shimmerGradient,
+                  child: const ShimmerLoading(
+                          isLoading: true,
+                          child: LoadingEventDetailCard(
+                            isLarge: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

@@ -25,12 +25,11 @@ class ActorItem extends StatelessWidget {
               border: Border.all(
                 color: AppConstants().purple,
               ),
-              //ToDo : Add networkImage when available
-              /* image: DecorationImage(
-                image: AssetImage(
-                    actor.profilePath),
+              image: DecorationImage(
+                image: NetworkImage(
+                    actor.picture),
                 fit: BoxFit.fill,
-              ), */
+              ),
             ),
           ),
           SizedBox(

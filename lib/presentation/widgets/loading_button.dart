@@ -24,7 +24,7 @@ class LoadingButton extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Spacer(),
+          const Spacer(),
           SizedBox(
             height: 5.w,
             width: 5.w,
@@ -32,35 +32,9 @@ class LoadingButton extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          Spacer()
+          const Spacer()
         ],
       ),
-    )
-        /* MaterialButton(
-      onPressed: null,
-      elevation: 0,
-      height: height ?? 6.h,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          40,
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(
-        vertical: 5,
-      ),
-      color: color ?? AppConstants().purple,
-      child: Row(
-        children: [
-          Expanded(
-            child: SizedBox(
-              height: 6.h,
-              width: 6.h,
-              child: const CircularProgressIndicator(),
-            ),
-          ),
-        ],
-      ),
-    ) */
-        ;
+    );
   }
 }

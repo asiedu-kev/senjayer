@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/cubit/hall/hall_cubit.dart';
 import 'package:senjayer/business_logic/cubit/room_category/room_category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/topic/topic_cubit.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/hall_loading_card.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/place_card.dart';
-import 'package:senjayer/presentation/screens/main_screen/widgets/room_card.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/hall_card.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/room_category_item.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/topic_item.dart';
+import 'package:senjayer/presentation/widgets/shimmer.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class LocationPage extends StatelessWidget {
-  const LocationPage({Key? key}) : super(key: key);
+class HallPage extends StatelessWidget {
+  const HallPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +70,14 @@ class LocationPage extends StatelessWidget {
                       },
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: 3.w,
                   ),
                   HomeActionButton(
                     icon: Icons.filter_list_sharp,
                     onTap: () {},
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: 3.w,
                   ),
                 ],
@@ -110,15 +113,15 @@ class LocationPage extends StatelessWidget {
               ),
               SizedBox(
                 height: 4.5.h,
-                child: BlocBuilder<RoomCategoryCubit, RoomCategoryState>(
+                child: BlocBuilder<HallCategoryCubit, HallCategoryState>(
                   builder: (context, state) {
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => RoomCategoryItem(
+                      itemBuilder: (context, index) => HallCategoryItem(
                         isSelected: index == state.currentIndex,
                         label: state.categories[index],
-                        onTap: () => BlocProvider.of<RoomCategoryCubit>(context)
+                        onTap: () => BlocProvider.of<HallCategoryCubit>(context)
                             .setCategoryIndex(index),
                       ),
                       itemCount: state.categories.length,
@@ -129,15 +132,41 @@ class LocationPage extends StatelessWidget {
               SizedBox(
                 height: 2.h,
               ),
-              SizedBox(
-                height: 19.2.h,
-                child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 6,
-                    itemBuilder: (context, index) {
-                      return const RoomCard();
-                    }),
+              BlocBuilder<HallCubit, HallState>(
+                  builder: (context, state) {
+                    if (state is HallFetched) {
+                      return SizedBox(
+                        height: 19.2.h,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.halls.length,
+                          itemBuilder: (context, index) {
+                            return HallCard(
+                              hall: state.halls[index],
+                            );
+                          }),
+                      );
+                      
+                    } else if (state is HallIsEmpty){
+                      return const SizedBox();
+                    }
+                     else {
+                      return SizedBox(
+                        height: 19.2.h,
+                        child: Shimmer(
+                        linearGradient: AppConstants().shimmerGradient,
+                        child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 6,
+                            itemBuilder: (context, index) {
+                              return const HallLoadingCard();
+                            }),
+                      )
+                      );
+                    }
+                  },
               ),
               SizedBox(
                 height: 2.h,
@@ -177,21 +206,21 @@ class LocationPage extends StatelessWidget {
                 height: 2.h,
               ),
               Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(0),
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 2.3,
-                crossAxisSpacing: 2.w,
-                mainAxisSpacing: 0,
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(0),
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2.3,
+                    crossAxisSpacing: 2.w,
+                    mainAxisSpacing: 0,
+                  ),
+                  itemCount: 10,
+                  itemBuilder: (ctx, index) {
+                    return const PlaceCard();
+                  },
+                ),
               ),
-              itemCount: 10,
-              itemBuilder: (ctx, index) {
-                return const PlaceCard();
-              },
-            ),
-          ),
             ],
           ),
         ),
@@ -199,4 +228,3 @@ class LocationPage extends StatelessWidget {
     );
   }
 }
-

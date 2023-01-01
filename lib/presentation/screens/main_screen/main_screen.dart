@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/category_bloc/categories_bloc.dart';
+import 'package:senjayer/business_logic/cubit/actors/actors_cubit.dart';
 import 'package:senjayer/business_logic/cubit/category/category_cubit.dart';
 import 'package:senjayer/business_logic/cubit/day_events/day_events_cubit.dart';
+import 'package:senjayer/business_logic/cubit/hall/hall_cubit.dart';
 import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
 import 'package:senjayer/business_logic/cubit/post/post_cubit.dart';
 import 'package:senjayer/business_logic/cubit/room_category/room_category_cubit.dart';
@@ -12,7 +14,7 @@ import 'package:senjayer/business_logic/cubit/topic/topic_cubit.dart';
 import 'package:senjayer/business_logic/cubit/trend/trend_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/actor_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/home_page.dart';
-import 'package:senjayer/presentation/screens/main_screen/pages/location_page.dart';
+import 'package:senjayer/presentation/screens/main_screen/pages/hall_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/pages/posts_page.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/bottom_nav_bar_item.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
@@ -145,15 +147,21 @@ class _MainScreenState extends State<MainScreen> {
                 MultiBlocProvider(
                   providers: [
                     BlocProvider(
-                      create: (context) => RoomCategoryCubit(),
+                      create: (context) => HallCategoryCubit(),
                     ),
                     BlocProvider(
                       create: (context) => TopicCubit(),
                     ),
+                    BlocProvider(
+                      create: (context) => HallCubit()..getHalls(),
+                    ),
                   ],
-                  child: const LocationPage(),
+                  child: const HallPage(),
                 ),
-                const ActorsPage(),
+                BlocProvider(
+                  create: (context) => ActorsCubit()..getActors(),
+                  child: const ActorsPage(),
+                ),
               ],
             ),
           ),

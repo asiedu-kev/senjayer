@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/data/repositories/events_repository.dart';
 

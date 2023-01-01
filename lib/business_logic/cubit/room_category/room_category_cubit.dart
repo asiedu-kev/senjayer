@@ -1,16 +1,16 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'room_category_state.dart';
 
-class RoomCategoryCubit extends Cubit<RoomCategoryState> {
-  RoomCategoryCubit()
+class HallCategoryCubit extends Cubit<HallCategoryState> {
+  HallCategoryCubit()
       : super(
-          RoomCategoryState(
+          HallCategoryState(
             currentIndex: 0,
             categories: ["Tout", "Concert", "Divertissement"],
           ),
         );
 
   void setCategoryIndex(int index) => emit(
-      RoomCategoryState(currentIndex: index, categories: state.categories));
+      HallCategoryState(currentIndex: index, categories: state.categories));
 }

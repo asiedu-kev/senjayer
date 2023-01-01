@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -40,10 +39,10 @@ class EventsAPI {
   }
 
   Future<Response> getAllEvents() async {
-    String topsUrl = "$mainUrl/api/v1/events-with-all";
+    String allEventsUrl = "$mainUrl/api/v1/events-with-all";
     final token = await localDataRepository.getToken();
     Response response = await _dio.get(
-      topsUrl,
+      allEventsUrl,
       options: Options(
         contentType: "application/json",
         headers: {
@@ -55,10 +54,10 @@ class EventsAPI {
   }
 
   Future<Response> getDayEvents() async {
-    String trendsUrl = "$mainUrl/api/v1/day-events";
+    String dayUrl = "$mainUrl/api/v1/day-events";
     final token = await localDataRepository.getToken();
     Response response = await _dio.get(
-      trendsUrl,
+      dayUrl,
       options: Options(
         contentType: "application/json",
         headers: {

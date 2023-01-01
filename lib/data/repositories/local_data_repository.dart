@@ -1,3 +1,4 @@
+import 'package:senjayer/data/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalDataRepository {
@@ -42,7 +43,23 @@ class LocalDataRepository {
     prefs.remove('token');
   }
 
-  Future<String> getPhone() async {
+  Future<User> getUser() async {
+    final prefs = await _prefs;
+    return User.fromJson(prefs.getString('user')!);
+  }
+
+  Future<void> persistUser(User user) async {
+    final prefs = await _prefs;
+    final String userString = user.toJson();
+    prefs.setString('user', userString);
+  }
+
+  Future<void> deleteuser() async {
+    final prefs = await _prefs;
+    prefs.remove('user');
+  }
+
+/*   Future<String> getPhone() async {
     final prefs = await _prefs;
     return prefs.getString('phone')!;
   }
@@ -55,7 +72,7 @@ class LocalDataRepository {
   Future<void> deletePhone() async {
     final prefs = await _prefs;
     prefs.remove('phone');
-  }
+  } */
 
   Future<void> setHasSeenOnboarding(bool value) async {
     final prefs = await _prefs;
