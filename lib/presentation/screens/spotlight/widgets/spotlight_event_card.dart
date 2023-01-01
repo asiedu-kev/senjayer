@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/cubit/favorites/favorites_cubit.dart';
 import 'package:senjayer/data/models/event.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class SpotlightEventCard extends StatelessWidget {
   final Event event;
+  final bool? isFavorite;
   const SpotlightEventCard({
     Key? key,
     required this.event,
+    this.isFavorite,
   }) : super(key: key);
 
   @override
@@ -18,7 +22,7 @@ class SpotlightEventCard extends StatelessWidget {
         arguments: event,
       ),
       child: Padding(
-        padding:  EdgeInsets.only(
+        padding: EdgeInsets.only(
           bottom: 2.h,
         ),
         child: Card(
@@ -73,10 +77,22 @@ class SpotlightEventCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Icon(
-                          Icons.bookmark_border,
-                          size: 20.sp,
-                          color: AppConstants().mediumPurple,
+                        IconButton(
+                          onPressed: () {
+                            BlocProvider.of<FavoritesCubit>(context)
+                                .favoriteEvent(
+                              event.id,
+                            );
+                          },
+                          icon: Icon(
+                            isFavorite != null
+                                ? isFavorite!
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_border
+                                : Icons.bookmark_border,
+                            size: 20.sp,
+                            color: AppConstants().mediumPurple,
+                          ),
                         )
                       ],
                     ),

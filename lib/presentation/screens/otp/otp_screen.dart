@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:count_down_time/count_down_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:senjayer/data/enums/otp_method.dart';
 import 'package:senjayer/presentation/screens/authentication/widgets/pin_entry.dart';
 import 'package:senjayer/presentation/widgets/arrow_back_appbar.dart';
 import 'package:senjayer/presentation/widgets/rounded_button.dart';
-import 'package:senjayer/utils/util_functions.dart';
 
 class OTPScreen extends StatefulWidget {
   final String title;

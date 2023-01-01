@@ -55,17 +55,40 @@ class Actor {
   }
 
   factory Actor.fromMap(Map<String, dynamic> map) {
+    final Map<String, SocialLink> socialLinks = {};
+    if(map['social_link'] != null){
+      for (var element in (map['social_link'] as List<dynamic>)) { 
+        element.forEach((key, value) { 
+          socialLinks.putIfAbsent(key, () => SocialLink.fromMap(value));
+        });
+      }
+    }
     return Actor(
       id: map['id']?.toInt() ?? 0,
-      fullName: map['full_name'] ?? '',
+      fullName: map['fullname'] ?? '',
       picture: map['picture'] ?? '',
+      categoryId: map['category_id']?.toInt() ?? 0,
+      entitled: map['entitled'] ?? '',
+      phone: map['user']['phone'] ?? '',
+      email: map['user']['email'] ?? '',
+      type: map['type'] ?? '',
+      about: map['about'] ?? '',
+      socialLinks: socialLinks
+    );
+  }
+
+  factory Actor.fromUserMap(Map<String, dynamic> map) {
+    return Actor(
+      id: map['id']?.toInt() ?? 0,
+      fullName: map['name'] ?? '',
+      picture: map['image_url'] ?? '',
       categoryId: map['category_id']?.toInt() ?? 0,
       entitled: map['entitled'] ?? '',
       phone: map['phone'] ?? '',
       email: map['email'] ?? '',
       type: map['type'] ?? '',
       about: map['about'] ?? '',
-      socialLinks: map['social_links'] != null
+      socialLinks: map['social_link'] != null
           ? (map['social_link'] as Map)
               .map((key, value) => MapEntry(key, SocialLink.fromMap(value)))
           : {},

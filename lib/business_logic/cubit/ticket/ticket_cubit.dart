@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/data/models/ticket.dart';
 
 part 'ticket_state.dart';

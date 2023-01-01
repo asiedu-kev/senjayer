@@ -1,10 +1,10 @@
 part of 'room_category_cubit.dart';
 
-class RoomCategoryState {
+class HallCategoryState {
   
   final int currentIndex;
   final List<String> categories;
-  RoomCategoryState({
+  HallCategoryState({
     required this.currentIndex,
     required this.categories,
   });

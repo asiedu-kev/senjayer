@@ -9,10 +9,10 @@ class UserAPI {
   final Dio _dio = Dio();
 
   Future<Response> getUsers() async {
-    String topsUrl = "$mainUrl/api/v1/users";
+    String usersUrl = "$mainUrl/api/v1/users";
     final token = await localDataRepository.getToken();
     Response response = await _dio.get(
-      topsUrl,
+      usersUrl,
       options: Options(
         contentType: "application/json",
         headers: {
@@ -24,10 +24,10 @@ class UserAPI {
   }
 
    Future<Response> getActorsFollowedByUser() async {
-    String topsUrl = "$mainUrl/api/v1/my-follows";
+    String followsUrl = "$mainUrl/api/v1/my-follows";
     final token = await localDataRepository.getToken();
     Response response = await _dio.get(
-      topsUrl,
+      followsUrl,
       options: Options(
         contentType: "application/json",
         headers: {
@@ -39,10 +39,10 @@ class UserAPI {
   }
 
   Future<Response> getUserTickets() async {
-    String topsUrl = "$mainUrl/api/v1/my-tickets";
+    String userTicketUrl = "$mainUrl/api/v1/my-tickets";
     final token = await localDataRepository.getToken();
     Response response = await _dio.get(
-      topsUrl,
+      userTicketUrl,
       options: Options(
         contentType: "application/json",
         headers: {

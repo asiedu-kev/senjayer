@@ -1,3 +1,4 @@
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/signup_bloc/signup.dart';
@@ -22,6 +23,14 @@ class _SingupScreenState extends State<SingupScreen> {
   final _emailController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _passwordController = TextEditingController();
+  final countryPicker = const FlCountryCodePicker();
+  late String countryCode;
+
+  @override
+  void initState() {
+    countryCode = "+229";
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -139,21 +148,37 @@ class _SingupScreenState extends State<SingupScreen> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 5.w),
-                      child: Text(
-                        "Numéro de téléphone",
-                        style: TextStyle(
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Indicatif",
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              "Numéro de téléphone",
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
                   ),
                   SizedBox(
                     height: 0.5.h,
                   ),
-                  TextFormField(
+                  /* TextFormField(
                     controller: _phoneNumberController,
                     keyboardType: TextInputType.phone,
                     decoration:
@@ -170,22 +195,68 @@ class _SingupScreenState extends State<SingupScreen> {
                   ),
                   SizedBox(
                     height: 2.h,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Text(
-                        "Mot de passe",
-                        style: TextStyle(
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.bold,
+                  ), */
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          final code =
+                              await countryPicker.showPicker(context: context);
+                          if (code != null) {
+                            setState(() {
+                              countryCode = code.dialCode;
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.w,
+                            vertical: 2.h,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: Text(
+                            countryCode,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10.sp,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: TextFormField(
+                          controller: _phoneNumberController,
+                          keyboardType: TextInputType.phone,
+                          decoration: const InputDecoration(
+                              hintText: "Numéro de téléphone"),
+                          validator: (value) {
+                            if (value == null) {
+                              return "Veuillez entrer un numéro";
+                            }
+                            if (value.isEmpty) {
+                              return "Veuillez entrer un numéro";
+                            }
+                            if (int.tryParse(value) != null) {
+                              return null;
+                            } else {
+                              return "Numéro invalide";
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    height: 0.5.h,
+                    height: 2.h,
                   ),
                   TextFormField(
                     controller: _passwordController,
@@ -289,10 +360,16 @@ class _SingupScreenState extends State<SingupScreen> {
                       }
                       return RoundedButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (_formKey.currentState!.validate() &&
+                                BlocProvider.of<PasswordCubit>(context)
+                                    .state
+                                    .isLongEnought &&
+                                BlocProvider.of<PasswordCubit>(context)
+                                    .state
+                                    .containsASCIIAndNumber) {
                               BlocProvider.of<SignupBloc>(context).add(
                                 SignupButtonPressed(
-                                  phone: _phoneNumberController.text.trim(),
+                                  phone: "$countryCode${_phoneNumberController.text.trim()}",
                                   name: _nameController.text.trim(),
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text,
@@ -300,22 +377,6 @@ class _SingupScreenState extends State<SingupScreen> {
                                       _passwordController.text,
                                 ),
                               );
-                              /* SignupButtonPressed(
-                                  name: _nameController.text,
-                                  phone: _phoneNumberController.text,
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                  passwordConfirmation:
-                                      _passwordController.text,
-                                ),
-                              ); */
-                              /* Navigator.of(context).pushNamed(
-                                "/otp",
-                                arguments: {
-                                  'title': "Inscription",
-                                  'otp_method': OTPMethod.sms,
-                                },
-                              ); */
                             }
                           },
                           label: "S'inscrire");

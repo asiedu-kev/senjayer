@@ -3,8 +3,8 @@ import 'package:senjayer/presentation/screens/room_detail/widgets/image_index_in
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class RoomDetailScreen extends StatelessWidget {
-  const RoomDetailScreen({Key? key}) : super(key: key);
+class HallDetailScreen extends StatelessWidget {
+  const HallDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

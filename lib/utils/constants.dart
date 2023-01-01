@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:senjayer/utils/hexConverter.dart';
+import 'package:senjayer/utils/hex_converter.dart';
 
 class AppConstants {
   final appTheme = ThemeData(
@@ -32,9 +32,6 @@ class AppConstants {
           color: HexColor.fromHex("#3A0078"),
         ),
       ),
-       /* 
-      filled: true,
-      fillColor: HexColor.fromHex("#F4F5F7"), */
     ),
     scaffoldBackgroundColor: Colors.white,
   );

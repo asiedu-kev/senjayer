@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:senjayer/data/models/actor.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:senjayer/business_logic/cubit/actors/actors_cubit.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/actor_item.dart';
+import 'package:senjayer/presentation/screens/main_screen/widgets/actor_loading_item.dart';
 import 'package:senjayer/presentation/screens/main_screen/widgets/home_action_button.dart';
+import 'package:senjayer/presentation/widgets/shimmer.dart';
 import 'package:senjayer/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
@@ -93,20 +96,46 @@ class ActorsPage extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(0),
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.85,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
-              ),
-              itemCount: 10,
-              itemBuilder: (ctx, index) {
-                return ActorItem(
-                  actor: demoActors[index % 4],
+            child: BlocBuilder<ActorsCubit, ActorsState>(
+              builder: (context, state) {
+                if(state is ActorsFetched){
+                  return GridView.builder(
+                  padding: const EdgeInsets.all(0),
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                  ),
+                  itemCount: state.actors.length,
+                  itemBuilder: (ctx, index) {
+                    return ActorItem(
+                      actor: state.actors[index],
+                    );
+                  },
                 );
+                }
+                else {
+                  return Shimmer(
+                    linearGradient: AppConstants().shimmerGradient,
+                    child: GridView.builder(
+                    padding: const EdgeInsets.all(0),
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.85,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 0,
+                    ),
+                    itemCount: 10,
+                    itemBuilder: (ctx, index) {
+                      return const ActorLoadingItem(
+                      );
+                    },
+                                  ),
+                  );
+                }
               },
             ),
           ),

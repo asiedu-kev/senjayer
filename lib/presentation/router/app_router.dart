@@ -7,6 +7,7 @@ import 'package:senjayer/business_logic/bloc/onboarding_bloc/onboarding_event.da
     as obd;
 import 'package:senjayer/business_logic/bloc/signup_bloc/signup.dart';
 import 'package:senjayer/business_logic/cubit/event_detail/event_detail_cubit.dart';
+import 'package:senjayer/business_logic/cubit/favorites/favorites_cubit.dart';
 import 'package:senjayer/business_logic/cubit/following/actors_followed_by_user_cubit.dart';
 import 'package:senjayer/business_logic/cubit/main_screen/main_screen_cubit.dart';
 import 'package:senjayer/business_logic/cubit/onboarding/onboarding_cubit.dart';
@@ -147,13 +148,20 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
 
       case '/favorites':
-        return MaterialPageRoute(builder: (_) => const FavoriteScreen());
+        return MaterialPageRoute(
+            builder: (_) =>  BlocProvider(
+                  create: (context) => FavoritesCubit()..getFavorites(),
+                  child: const FavoriteScreen(),
+                ),);
 
       case '/spotlight':
         final argument = settings.arguments as List<Event>;
         return MaterialPageRoute(
-          builder: (_) => SpotlightScreen(
-            topEvents: argument,
+          builder: (_) => BlocProvider(
+            create: (context) => FavoritesCubit(),
+            child: SpotlightScreen(
+              topEvents: argument,
+            ),
           ),
         );
 
@@ -207,7 +215,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const NewsDetailScreen());
 
       case '/roomDetail':
-        return MaterialPageRoute(builder: (_) => const RoomDetailScreen());
+        return MaterialPageRoute(builder: (_) => const HallDetailScreen());
 
       case '/profile':
         return MaterialPageRoute(
@@ -221,8 +229,7 @@ class AppRouter {
                     ActorsFollowedByUserCubit()..getActorsFollowedByUser(),
               ),
               BlocProvider(
-                create: (context) =>
-                    UserTicketsCubit()..getUserTickets(),
+                create: (context) => UserTicketsCubit()..getUserTickets(),
               ),
             ],
             child: const ProfileScreen(),

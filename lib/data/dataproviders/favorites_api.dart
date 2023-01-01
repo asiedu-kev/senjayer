@@ -42,10 +42,10 @@ class FavoritesAPI {
   }
 
   Future<Response> removeFavorites(int favoriteId) async {
-    String topsUrl = "$mainUrl/api/v1/my-tickets/$favoriteId";
+    String favoritesUrl = "$mainUrl/api/v1/my-tickets/$favoriteId";
     final token = await localDataRepository.getToken();
     Response response = await _dio.delete(
-      topsUrl,
+      favoritesUrl,
       options: Options(
         contentType: "application/json",
         headers: {

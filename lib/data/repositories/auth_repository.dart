@@ -70,9 +70,12 @@ class AuthRepository {
     String password,
   ) async {
     try {
+      log("login");
       final response = await _authAPI.login(phone, password);
+      log("login");
       final responseData = jsonDecode(response.toString());
       log("login success");
+      log(responseData.toString());
       return right(responseData);
     } on DioError catch (error) {
       log('DioError ${error.response!.data.toString()}');

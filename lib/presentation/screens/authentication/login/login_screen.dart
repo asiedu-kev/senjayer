@@ -1,3 +1,4 @@
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/business_logic/bloc/login_bloc/login.dart';
@@ -20,9 +21,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+  final countryPicker = const FlCountryCodePicker();
+  late String countryCode;
 
   @override
   void initState() {
+    countryCode = "+229";
     rememberMe = false;
     super.initState();
   }
@@ -76,38 +80,95 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 4.w),
-                      child: Text(
-                        "Numéro de téléphone",
-                        style: TextStyle(
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Indicatif",
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              "Numéro de téléphone",
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
                   ),
                   SizedBox(
                     height: 0.5.h,
                   ),
-                  TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    decoration:
-                        const InputDecoration(hintText: "Numéro de téléphone"),
-                    validator: (value) {
-                      if (value == null) {
-                        return "Veuillez entrer un numéro";
-                      }
-                      if (value.isEmpty) {
-                        return "Veuillez entrer un numéro";
-                      }
-                      if (int.tryParse(value) != null) {
-                        return null;
-                      } else {
-                        return "Numéro invalide";
-                      }
-                    },
+                  Row(
+                    children: [
+                      GestureDetector(
+                        
+                        onTap: () async {
+                          final code =
+                              await countryPicker.showPicker(context: context);
+                          if (code != null) {
+                            setState(() {
+                              countryCode = code.dialCode;
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 2.w,
+                            vertical: 2.h,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: Text(
+                            countryCode,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: TextFormField(
+                          controller: _phoneController,
+                          keyboardType: TextInputType.phone,
+                          decoration: const InputDecoration(
+                              hintText: "Numéro de téléphone"),
+                          validator: (value) {
+                            if (value == null) {
+                              return "Veuillez entrer un numéro";
+                            }
+                            if (value.isEmpty) {
+                              return "Veuillez entrer un numéro";
+                            }
+                            if (int.tryParse(value) != null) {
+                              return null;
+                            } else {
+                              return "Numéro invalide";
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 2.h,
@@ -211,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formKey.currentState!.validate()) {
                               BlocProvider.of<LoginBloc>(context).add(
                                 LoginButtonPressed(
-                                  phone: _phoneController.text,
+                                  phone: "$countryCode${_phoneController.text}",
                                   password: _passwordController.text,
                                   rememberMe: rememberMe,
                                 ),

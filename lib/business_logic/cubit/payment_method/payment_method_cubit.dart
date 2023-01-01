@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:senjayer/data/models/payment_method.dart';
 
 part 'payment_method_state.dart';

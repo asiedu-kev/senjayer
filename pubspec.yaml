@@ -45,6 +45,8 @@ dependencies:
   firebase_core: ^2.3.0
   firebase_auth: ^4.1.4
   count_down_time: ^0.0.8
+  country_phone_code_picker: ^0.0.41
+  fl_country_code_picker: ^0.0.4
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:senjayer/business_logic/bloc/category_bloc/categories_bloc.dart';
 import 'package:senjayer/data/models/category.dart';

@@ -31,8 +31,9 @@ class AuthenticationBloc
     on<LoggedIn>(
       (event, emit) async {
         emit(AuthenticationLoading());
-        await localDataRepository.persistToken(event.token);
-        await localDataRepository.persistPhone(event.user.phone);
+        await localDataRepository.persistToken(event.token);/* 
+        await localDataRepository.persistPhone(event.user.phone); */
+        await localDataRepository.persistUser(event.user);
         emit(AuthenticationAuthenticated());
       },
     );
@@ -40,8 +41,8 @@ class AuthenticationBloc
       (event, emit) async {
         emit(AuthenticationLoading());
         await localDataRepository.deleteToken();
-        await localDataRepository.clearRememberMe();
-        await localDataRepository.deletePhone();
+        await localDataRepository.clearRememberMe();/* 
+        await localDataRepository.deletePhone(); */
         emit(AuthenticationUnauthenticated());
       },
     );
